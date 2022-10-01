@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use PDO;
+use \App\Token;
 
 class User extends \Core\Model
 {
@@ -23,23 +24,24 @@ class User extends \Core\Model
     }
 
     public function save(){
+
         $this->validate();
 
         if (empty($this->errors)) {
 
-            $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-
-            $sql = 'INSERT INTO users (name, email, password_hash)
-                    VALUES (:name, :email, :password_hash)';
-                                              
-            $db = static::getDB();
-            $stmt = $db->prepare($sql);
-                                                  
-            $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
-            $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-            $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
-                                          
-            return $stmt->execute();
+            $password_hash=password_hash($this->password, PASSWORD_DEFAULT);
+            
+            $sql='INSERT INTO users (username, email, password) 
+            VALUES(:name,  :email, :password)';
+    
+            $db=static::getDB();
+            $stmt=$db->prepare($sql);
+    
+            $stmt->bindValue(':name', $this -> name, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $this -> email, PDO::PARAM_STR);
+            $stmt->bindValue(':password', $password_hash, PDO::PARAM_STR);
+            
+            $stmt->execute();
         }
 
         return false;
@@ -53,20 +55,23 @@ class User extends \Core\Model
         if (filter_var($this->email, FILTER_VALIDATE_EMAIL) === false) {
             $this->errors[] = 'Invalid email';
         }
-        if (static::emailExists($this->email)) {
+        if (static::emailExists($this->email, $this->id ?? null)) {
             $this->errors[] = 'email already taken';
         }
 
-        if (strlen($this->password) < 6) {
-            $this->errors[] = 'Please enter at least 6 characters for the password';
-        }
+        if (isset($this->password)) {
 
-        if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
-            $this->errors[] = 'Password needs at least one letter';
-        }
+            if (strlen($this->password) < 6) {
+                $this->errors[] = 'Please enter at least 6 characters for the password';
+            }
 
-        if (preg_match('/.*\d+.*/i', $this->password) == 0) {
-            $this->errors[] = 'Password needs at least one number';
+            if (preg_match('/.*[a-z]+.*/i', $this->password) == 0) {
+                $this->errors[] = 'Password needs at least one letter';
+            }
+
+            if (preg_match('/.*\d+.*/i', $this->password) == 0) {
+                $this->errors[] = 'Password needs at least one number';
+            }
         }
     }
 
@@ -114,7 +119,7 @@ class User extends \Core\Model
         return $stmt->fetch();
     }
 
-    public function rememberLogin(){
+    /*public function rememberLogin(){
         $token = new Token();
         $hashed_token = $token->getHash();
         $this->remember_token = $token->getValue();
@@ -132,5 +137,5 @@ class User extends \Core\Model
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $this->expiry_timestamp), PDO::PARAM_STR);
 
         return $stmt->execute();
-    }
+    }*/
 }
