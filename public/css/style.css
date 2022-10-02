@@ -43,3 +43,8 @@ h1 {
 .newAccountButton:hover {
     background-color: #222;
 }
+
+.error {
+    color: red;
+    font-size: 16px;
+}
