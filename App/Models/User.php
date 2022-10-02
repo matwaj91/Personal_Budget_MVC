@@ -75,8 +75,17 @@ class User extends \Core\Model
         }
     }
 
-    public static function emailExists($email){
-        return static::findByEmail($email) !== false;
+    public static function emailExists($email, $ignore_id = null)
+    {
+        $user = static::findByEmail($email);
+
+        if ($user) {
+            if ($user->id != $ignore_id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public static function authenticate ($email, $password){
