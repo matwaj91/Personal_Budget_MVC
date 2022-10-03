@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PDO;
 use \App\Token;
+use \Core\View;
 
 class User extends \Core\Model
 {
@@ -41,7 +42,7 @@ class User extends \Core\Model
             $stmt->bindValue(':email', $this -> email, PDO::PARAM_STR);
             $stmt->bindValue(':password', $password_hash, PDO::PARAM_STR);
             
-            $stmt->execute();
+            return $stmt->execute();
         }
 
         return false;
