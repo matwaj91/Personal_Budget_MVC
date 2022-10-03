@@ -31,6 +31,10 @@ class User extends \Core\Model
         if (empty($this->errors)) {
 
             $password_hash=password_hash($this->password, PASSWORD_DEFAULT);
+
+            $token = new Token();
+            $hashed_token = $token->getHash();
+            $this->activation_token = $token->getValue();
             
             $sql='INSERT INTO users (username, email, password) 
             VALUES(:name,  :email, :password)';
@@ -91,8 +95,8 @@ class User extends \Core\Model
     public static function authenticate ($email, $password){
         $user = static::findByEmail($email);
 
-        if($user){
-            if(password_verify($password, $user->password_hash)) {
+        if ($user && $user->is_active) {
+            if (password_verify($password, $user->password_hash)) {
                 return $user;
             }
         }
