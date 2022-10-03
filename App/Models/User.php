@@ -128,7 +128,7 @@ class User extends \Core\Model
         return $stmt->fetch();
     }
 
-    /*public function rememberLogin(){
+    public function rememberLogin(){
         $token = new Token();
         $hashed_token = $token->getHash();
         $this->remember_token = $token->getValue();
@@ -146,5 +146,5 @@ class User extends \Core\Model
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $this->expiry_timestamp), PDO::PARAM_STR);
 
         return $stmt->execute();
-    }*/
+    }
 }
