@@ -26,8 +26,14 @@
                     name="password" required>
             </div>
             <div class="form-group">
-                <label class="font-weight-normal text-black h6">Show me the Password!</label>
+                <label class="font-weight-normal text-black ">Show me the Password!</label>
                 <i><span class="bi bi-eye-slash" id="togglePassword"></span></i>
+            </div>
+            <div class="form-group checkbox ">
+                <label class="font-weight-normal text-black">
+                    <input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %} />
+                    Remember me
+                </label>
             </div>
             <button type="submit" class="logInButton my-3 p-1 d-block text-white btn btn-block mx-auto">Log
                 In</button>
