@@ -5,6 +5,7 @@ namespace   App\Controllers;
 use \Core\View;
 use \App\Models\User;
 use \App\Auth;
+use \App\Flash;
 
 class Login extends \Core\Controller
 {
@@ -24,7 +25,7 @@ class Login extends \Core\Controller
 
         }else {
 
-            //Flash::addMessage('Login unsuccessful, please try again', Flash::WARNING);
+            Flash::addMessage('Login failed! Incorrect email or password.', Flash::WARNING);
 
             View::renderTemplate('Home/index.html', [
             'email' => $_POST['email'],
@@ -40,7 +41,7 @@ class Login extends \Core\Controller
     }
 
     public function showLogoutMessageAction(){
-      //Flash::addMessage('Logout successful');
+      Flash::addMessage('You have been successfully logged out!');
 
       $this->redirect('/');
     }

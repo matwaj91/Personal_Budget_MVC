@@ -91,6 +91,16 @@
         {% endif %}
     </header>
 
+    {% for message in flash_messages %}
+    <div
+        class="bg-white rounded-lg opacity-75 shadow-lg h5 text-center font-weight-bold alert-dismissible alert alert-{{ message.type }}">
+        {{ message.body }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+
     {% block body %}
     {% endblock %}
 
