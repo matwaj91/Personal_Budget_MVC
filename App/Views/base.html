@@ -13,6 +13,84 @@
 </head>
 
 <body>
+    <header>
+        {% if current_user %}
+        <nav class="navbar navbar-light bg-white navbar-expand-md">
+            <a class="navbar-brand " href="#"></a>
+            <button class="navbar-toggler order-first " type="button" data-toggle="collapse" data-target="#mainMenu"
+                aria-controls="mainMenu" aria-expanded="false" aria-label="navigation">
+                <span class="navbar-toggler-icon opacity-75"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-left " id="mainMenu">
+                <ul class=" navbar-nav h5 p-0 mr-2">
+                    <li class="nav-item ">
+                        <a class="nav-link active" href="Personal_Budget_Main_Menu.php">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Personal_Budget_Income.php">Add Income</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Personal_Budget_Expense.php">Add Expense</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                            id="subMenu" aria-haspopup="true">Display
+                            Balance</a>
+                        <ul class="dropdown-menu" aria-labelledby="subMenu">
+                            <li><a class="dropdown-item h5" href="Personal_Budget_Current_Month.php">Current Month</a>
+                            </li>
+                            <li><a class="dropdown-item h5" href="Personal_Budget_Previous_Month.php">Previous Month</a>
+                            </li>
+                            <li><a class="dropdown-item h5" href="Personal_Budget_Current_Year.php">Current Year</a>
+                            </li>
+                            <li><button type="button" class="dropdown-item h5" data-toggle="modal"
+                                    data-target="#exampleModal">Nonstandard</button></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Personal_Budget_Log_Out.php">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+            style="display: none;">
+            <form action="Personal_Budget_Nonstandard.php" method="post">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Please provide a date range:
+                            </h5>
+                            <button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body h5">
+                            <div class="form-group mx-auto">
+                                <label for="dateFrom" class="font-weight-normal text-black">Date from:</label>
+                                <input type="date" class="form-control text-dark border-4" id="dateFrom"
+                                    aria-describedby="dateFrom" name="dateFrom" required>
+                            </div>
+                            <div class="form-group mx-auto">
+                                <label for="dateTo" class="font-weight-normal text-black">Date to:</label>
+                                <input type="date" class="form-control text-dark border-4" id="dateTo"
+                                    aria-describedby="dateTo" name="dateTo" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="cancelButton text-white btn"
+                                data-dismiss="modal">Close</button>
+                            <button type="submit" class="modalButton btn text-white">Check the Balance</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </header>
+
     {% block body %}
     {% endblock %}
 
