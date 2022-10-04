@@ -36,8 +36,8 @@ class User extends \Core\Model
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
             
-            $sql='INSERT INTO users (username, email, password) 
-            VALUES(:name,  :email, :password)';
+            $sql='INSERT INTO users (username, email, password, activation_hash) 
+            VALUES(:name,  :email, :password, :activation_hash)';
     
             $db=static::getDB();
             $stmt=$db->prepare($sql);
@@ -45,6 +45,7 @@ class User extends \Core\Model
             $stmt->bindValue(':name', $this -> name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this -> email, PDO::PARAM_STR);
             $stmt->bindValue(':password', $password_hash, PDO::PARAM_STR);
+            $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
             
             return $stmt->execute();
         }
@@ -96,7 +97,7 @@ class User extends \Core\Model
         $user = static::findByEmail($email);
 
         if ($user && $user->is_active) {
-            if (password_verify($password, $user->password_hash)) {
+            if (password_verify($password, $user->password)) {
                 return $user;
             }
         }
