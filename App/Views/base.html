@@ -93,7 +93,7 @@
 
     {% for message in flash_messages %}
     <div
-        class="bg-white rounded-lg opacity-75 shadow-lg h5 text-center font-weight-bold alert-dismissible alert alert-{{ message.type }}">
+        class="bg-white rounded-lg opacity-75 shadow-lg h5 p-3 mx-auto text-center font-weight-bold alert-dismissible alert alert-{{ message.type }}">
         {{ message.body }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -105,8 +105,8 @@
     {% endblock %}
 
     <footer>
-        <div class="footer">
-            <p class="text-center h5">All rights reserved&copy; 2022 Thank you for your visit!</p>
+        <div class="text-center h5">
+            <p>All rights reserved&copy; 2022 Thank you for your visit!</p>
         </div>
     </footer>
 
