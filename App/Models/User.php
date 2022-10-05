@@ -5,6 +5,7 @@ namespace App\Models;
 use PDO;
 use \App\Token;
 use \Core\View;
+use \App\Mail;
 
 class User extends \Core\Model
 {
@@ -151,5 +152,47 @@ class User extends \Core\Model
         $stmt->bindValue(':expires_at', date('Y-m-d H:i:s', $this->expiry_timestamp), PDO::PARAM_STR);
 
         return $stmt->execute();
+    }
+
+    public function sendActivationEmail(){
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . '/signup/activate/' . $this->activation_token;
+
+        $text = View::getTemplate('Signup/activation_email.txt', ['url' => $url]);
+        $html = View::getTemplate('Signup/activation_email.html', ['url' => $url]);
+		
+		Mail::send($this->email, 'Account activation', $html, $text);   
+    }
+
+    public static function findByToken($hashed_token)
+    {
+        $sql = 'SELECT * FROM users WHERE activation_hash = :hashed_token';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
+    public static function activate($value){
+        $token = new Token($value);
+        $hashed_token = $token->getHash();
+		$user = static::findByToken($hashed_token);
+
+        $sql = 'UPDATE users
+                SET is_active = 1,
+                    activation_hash = null
+                WHERE activation_hash = :hashed_token';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
+
+        $stmt->execute();
     }
 }

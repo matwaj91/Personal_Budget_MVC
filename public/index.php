@@ -2,6 +2,8 @@
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
+$loader = new \Twig\Loader\ArrayLoader();
+$twig = new \Twig\Environment($loader);
 
 error_reporting(E_ALL);
 set_error_handler('Core\Error::errorHandler');

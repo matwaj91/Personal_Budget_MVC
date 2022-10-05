@@ -25,7 +25,7 @@ class Login extends \Core\Controller
 
         }else {
 
-            Flash::addMessage('Login failed! Incorrect email or password.', Flash::WARNING);
+            Flash::addMessage('Authenticated failed! Please check your credentials and try again.', Flash::WARNING);
 
             View::renderTemplate('Home/index.html', [
             'email' => $_POST['email'],
