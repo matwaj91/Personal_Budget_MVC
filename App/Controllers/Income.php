@@ -15,14 +15,14 @@ class Income extends \Core\Controller
 
     public function addAction(){
 		$income = new Incomes($_POST);
-		
+
         if ($income->save()) {
 
-            Flash::addMessage('Dodano przychód');
+            Flash::addMessage('Income has been added!');
+
+            $this->redirect('/Menu/income');
 
         } else {
-
-            Flash::addMessage('Niepoprawne dane', Flash::WARNING);
 
             View::renderTemplate('Menu/addIncome.html',[
                 'income' => $income

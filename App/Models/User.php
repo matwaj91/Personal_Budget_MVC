@@ -11,12 +11,12 @@ class User extends \Core\Model
 {
     public $id;
  
-    public $name;
+    public $username;
+
+    public $password;
  
     public $email;
  
-    public $password;
-
     public $errors = [];
 
     public function __construct($data = []){
@@ -44,8 +44,8 @@ class User extends \Core\Model
             $stmt=$db->prepare($sql);
     
             $stmt->bindValue(':name', $this -> name, PDO::PARAM_STR);
-            $stmt->bindValue(':email', $this -> email, PDO::PARAM_STR);
             $stmt->bindValue(':password', $password_hash, PDO::PARAM_STR);
+            $stmt->bindValue(':email', $this -> email, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
             
             return $stmt->execute();
@@ -194,5 +194,21 @@ class User extends \Core\Model
         $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
 
         $stmt->execute();
+
+        $userId = $user->id;		 
+		$sql = "INSERT INTO incomes_category_assigned_to_users SELECT 'NULL','$userId',name FROM incomes_category_default";
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->execute();
+		
+		$sql = "INSERT INTO expenses_category_assigned_to_users SELECT 'NULL','$userId',name FROM expenses_category_default";
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->execute();
+		
+		$sql = "INSERT INTO payment_methods_assigned_to_users SELECT 'NULL','$userId',name FROM payment_methods_default";
+		$db = static::getDB();
+        $stmt = $db->prepare($sql);
+		$stmt->execute();
     }
 }
