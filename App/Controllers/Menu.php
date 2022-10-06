@@ -9,14 +9,18 @@ use \App\Flash;
 
 class Menu extends Authenticated
 {
-    protected function before()
-    {
+    protected function before(){
         parent::before();
 
         $this->user = Auth::getUser();
     }
-	public function mainAction()
-	{	
+
+	public function mainAction(){	
 		View::renderTemplate('Menu/main.html');
 	}
+
+    public function incomeAction(){	
+		View::renderTemplate('Menu/addIncome.html');
+	}
+
 }

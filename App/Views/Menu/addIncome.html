@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Menu{% endblock %}
+
+{% block body %}
+<article>
+    <div class="container mt-2 p-2 h5 mx-auto">
+        <form method="post"
+            class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4 ">
+            <div class="mb-2">
+                <h1 class="display-6 text-center p-0">Income</h1>
+            </div>
+            <div class="form-group mx-auto">
+                <label for="amount" class="font-weight-normal text-black">Amount</label>
+                <input type="number" min="0" step="0.01" class="form-control font-weight-bold text-dark border-4"
+                    id="amount" name="amount" aria-describedby="amount" required>
+            </div>
+            <div class="form-group mx-auto">
+                <label for="date" class="font-weight-normal text-black">Date</label>
+                <input type="date" class="form-control font-weight-bold text-dark border-4" id="date" name="date"
+                    aria-describedby="date" required>
+            </div>
+            <div class="form-group mx-auto">
+                <label for="date" class="font-weight-normal text-black">Category</label>
+                <select class="form-control text-dark border-4" id="category" size="4" name="category"
+                    aria-describedby="category" required>
+                    <option value="salary" class="font-weight-bold">Salary</option>
+                    <option value="interest" class="font-weight-bold">Interest</option>
+                    <option value="allegro" class="font-weight-bold">Allegro</option>
+                    <option value="another" class="font-weight-bold">Another</option>
+                </select>
+            </div>
+            <div class="form-group mx-auto">
+                <label for="comment" class="font-weight-normal text-black">Comment</label>
+                <textarea id="comment" name="comment" placeholder="Type something here. . . " rows="2"
+                    class="form-control font-weight-bold text-black border-4"></textarea>
+            </div>
+            <button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Add
+            </button>
+            <a href="/Menu/main"
+                class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
+        </form>
+    </div>
+</article>
+
+{% endblock %}

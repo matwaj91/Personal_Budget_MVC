@@ -25,13 +25,13 @@
             <div class="collapse navbar-collapse justify-content-left " id="mainMenu">
                 <ul class=" navbar-nav h5 p-0 mr-2">
                     <li class="nav-item ">
-                        <a class="nav-link active" href="Personal_Budget_Main_Menu.php">Home</a>
+                        <a class="nav-link active" href="/Menu/main">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Personal_Budget_Income.php">Add Income</a>
+                        <a class="nav-link" href="/Menu/income">Add Income</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Personal_Budget_Expense.php">Add Expense</a>
+                        <a class="nav-link" href="/Menu/expense">Add Expense</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
@@ -80,9 +80,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="cancelButton text-white btn"
-                                data-dismiss="modal">Close</button>
-                            <button type="submit" class="modalButton btn text-white">Check the Balance</button>
+                            <button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
+                            <button type="submit" class="greenButton btn text-white">Check the Balance</button>
                         </div>
                     </div>
                 </div>
@@ -125,6 +124,7 @@
 
     <script src="/js/hideShowPassword.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/setTodayDate.js"></script>
 
     {% block footer %}
     {% endblock %}
