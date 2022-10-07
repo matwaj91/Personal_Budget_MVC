@@ -27,4 +27,16 @@ class Menu extends Authenticated
 		View::renderTemplate('Menu/addExpense.html');
 	}
 
+    public function currentMonthAction(){	
+
+		$currentMonth = date('m');
+		$currentYear = date('Y');
+		$daysOfNumber = date('t');
+		
+		$_SESSION['dateFrom'] = "$currentYear".'-'."$currentMonth".'-01';
+		$_SESSION['dateTo'] = "$currentYear".'-'."$currentMonth".'-'."$daysOfNumber";
+		
+		View::renderTemplate('Menu/showBalance.html');
+	}
+
 }

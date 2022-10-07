@@ -18,6 +18,8 @@ p {
 
 .container {
     margin-top: 130px;
+    display: flex;
+    justify-content: center;
 }
 
 #email:focus,
@@ -105,4 +107,20 @@ input[type='checkbox']:hover {
     text-shadow: 1px 1px 2px rgb(26, 24, 25);
     color: #74aa54;
     background-color: white;
+}
+
+td,
+th,
+tr,
+th[scope="col"],
+th[scope="row"] {
+    border: 3px solid black;
+}
+
+td {
+    font-size: 16px;
+}
+
+tr.collapse.in {
+    display: table-row;
 }
