@@ -32,7 +32,7 @@ class View
             $twig->addGlobal('current_user', \App\Auth::getUser());
             $twig->addGlobal('flash_messages', \App\Flash::getMessages());
             $twig->addGlobal('user_incomes',\App\Models\Incomes::getCategorySumIncomes());
-            $twig->addGlobal('individual_income',\App\Models\Incomes::getDataOfIndividualIncome());
+            $twig->addGlobal('individual_incomes',\App\Models\Incomes::getDataOfIndividualIncome());
             
 
 			//$twig->addGlobal('expenses',\App\Models\Expenses::getAll());

@@ -26,12 +26,19 @@
                 <tbody>
                     {% set totalSumIncomes = 0 %}
                     {% for income in user_incomes %}
-                    <tr data-toggle='collapse' data-target={{income.name}} role='button' aria-expanded='false'
-                        aria-controls='collapseExample'>
-                        <td coldspan="3" class='bi bi-caret-down-fill'>{{income.name}}</th>
+                    <tr>
+                        <td coldspan="3">{{income.name}}</th>
                         <td>{{income.sum}}</th>
-                            {% set totalSumIncomes = totalSumIncomes + income.sum %}
                     </tr>
+                    {% set totalSumIncomes = totalSumIncomes + income.sum %}
+                    {% for individual in individual_incomes %}
+                    {% if individual.nameOfCategory == income.name %}
+                    <tr>
+                        <td coldspan="3">{{individual.individual_date}}</th>
+                        <td>{{individual.individual_amount}}</th>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
                     {% endfor %}
                     <tr>
                         <th scope="row" coldspan='3'>Total amount</th>
