@@ -77,10 +77,12 @@ p {
     font-size: 16px;
 }
 
+input[type="radio"],
 input[type="checkbox"] {
     accent-color: rgb(109, 160, 79);
 }
 
+input[type='radio']:hover,
 input[type='checkbox']:hover {
     box-shadow: 0 0 5px 0px #74aa54;
 }

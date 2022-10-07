@@ -23,4 +23,8 @@ class Menu extends Authenticated
 		View::renderTemplate('Menu/addIncome.html');
 	}
 
+    public function expenseAction(){	
+		View::renderTemplate('Menu/addExpense.html');
+	}
+
 }
