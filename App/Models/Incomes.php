@@ -43,4 +43,57 @@ class Incomes extends \Core\Model
             return false;
         }
     }
+
+    public static function getCategorySumIncomes(){
+        
+		if($user = Auth::getUser()){
+
+			$userId = $user->id;
+
+			if (isset($_SESSION['dateFrom']) && isset($_SESSION['dateTo']) ){
+
+			    $dateFrom = $_SESSION['dateFrom'];
+			    $dateTo =$_SESSION['dateTo'] ;
+
+			}else{
+
+			    $datefrom = '';
+			    $dateTo = '';
+			}
+		
+			$db = static::getDB();
+            $stmt = $db->query("SELECT name, SUM(amount) AS sum FROM incomes,incomes_category_assigned_to_users AS category WHERE incomes.user_id = '$userId' AND category.id = incomes.income_category_assigned_to_user_id AND date_of_income BETWEEN '$dateFrom' AND '$dateTo' GROUP BY name");
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $results;
+		}
+	}
+
+    public static function getDataOfIndividualIncome(){
+
+		if($user = Auth::getUser()){
+
+            $userId = $user->id;
+
+            if (isset($_SESSION['dateFrom']) && isset($_SESSION['dateTo']) ){
+
+			    $dateFrom = $_SESSION['dateFrom'];
+			    $dateTo =$_SESSION['dateTo'] ;
+
+			}else{
+
+			    $datefrom = '';
+			    $dateTo = '';
+			}
+
+            $db = static::getDB();
+            $stmt = $db->query("SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name as nameOfCategory FROM incomes INNER JOIN incomes_category_assigned_to_users on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id WHERE incomes.user_id = '$userId' AND date_of_income BETWEEN '$dateFrom' AND '$dateTo'");
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            echo "<pre>";
+                print_r($results);
+            echo "</pre>";
+            
+        }
+    }
 }

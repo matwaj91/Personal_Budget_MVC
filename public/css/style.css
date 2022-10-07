@@ -117,10 +117,6 @@ th[scope="row"] {
     border: 3px solid black;
 }
 
-td {
-    font-size: 16px;
-}
-
 tr.collapse.in {
     display: table-row;
 }

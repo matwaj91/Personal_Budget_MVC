@@ -31,8 +31,15 @@ class View
             $twig = new \Twig\Environment($loader);
             $twig->addGlobal('current_user', \App\Auth::getUser());
             $twig->addGlobal('flash_messages', \App\Flash::getMessages());
-            //$twig->addGlobal('incomes',\App\Models\Incomes::getAll());
+            $twig->addGlobal('user_incomes',\App\Models\Incomes::getCategorySumIncomes());
+            $twig->addGlobal('individual_income',\App\Models\Incomes::getDataOfIndividualIncome());
+            
+
 			//$twig->addGlobal('expenses',\App\Models\Expenses::getAll());
+            //$twig->addGlobal('payment_methods',\App\Models\PaymentMethods::getAll());
+			//$twig->addGlobal('user_expenses',\App\Models\Expenses::getAllUserExpenses());
+			//$twig->addGlobal('selected_incomes',\App\Models\ShowIncomes::getIncomeData());
+			//$twig->addGlobal('selected_expenses',\App\Models\ShowExpenses::getExpenseData());
         }
 
         return $twig->render($template, $args);

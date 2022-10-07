@@ -33,6 +33,6 @@ class Income extends \Core\Controller
 
     public function displayIncomesAction(){
 
-		displayIncomes::displayAllIncomes($_POST);
+		Incomes::displayAllIncomes($_POST);
 	}
 }

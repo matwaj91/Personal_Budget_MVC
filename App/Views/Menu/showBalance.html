@@ -24,10 +24,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% set totalSumIncomes = 0 %}
+                    {% for income in user_incomes %}
+                    <tr data-toggle='collapse' data-target={{income.name}} role='button' aria-expanded='false'
+                        aria-controls='collapseExample'>
+                        <td coldspan="3" class='bi bi-caret-down-fill'>{{income.name}}</th>
+                        <td>{{income.sum}}</th>
+                            {% set totalSumIncomes = totalSumIncomes + income.sum %}
+                    </tr>
+                    {% endfor %}
                     <tr>
                         <th scope="row" coldspan='3'>Total amount</th>
-                        <td class="text-dark font-weight-bold h5">
-                        </td>
+                        <td class="text-dark font-weight-bold h5">{{totalSumIncomes}} </td>
                     </tr>
                 </tbody>
             </table>
