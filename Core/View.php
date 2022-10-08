@@ -33,13 +33,8 @@ class View
             $twig->addGlobal('flash_messages', \App\Flash::getMessages());
             $twig->addGlobal('user_incomes',\App\Models\Incomes::getCategorySumIncomes());
             $twig->addGlobal('individual_incomes',\App\Models\Incomes::getDataOfIndividualIncome());
-            
-
-			//$twig->addGlobal('expenses',\App\Models\Expenses::getAll());
-            //$twig->addGlobal('payment_methods',\App\Models\PaymentMethods::getAll());
-			//$twig->addGlobal('user_expenses',\App\Models\Expenses::getAllUserExpenses());
-			//$twig->addGlobal('selected_incomes',\App\Models\ShowIncomes::getIncomeData());
-			//$twig->addGlobal('selected_expenses',\App\Models\ShowExpenses::getExpenseData());
+            $twig->addGlobal('user_expenses',\App\Models\Expenses::getCategorySumExpenses());
+            $twig->addGlobal('individual_expenses',\App\Models\Expenses::getDataOfIndividualExpense());
         }
 
         return $twig->render($template, $args);

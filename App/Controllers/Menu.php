@@ -35,8 +35,9 @@ class Menu extends Authenticated
 		
 		$_SESSION['dateFrom'] = "$currentYear".'-'."$currentMonth".'-01';
 		$_SESSION['dateTo'] = "$currentYear".'-'."$currentMonth".'-'."$daysOfNumber";
-		
+	
 		View::renderTemplate('Menu/showBalance.html');
+
 	}
 
 }

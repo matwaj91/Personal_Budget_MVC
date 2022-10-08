@@ -4,9 +4,20 @@
 
 {% block footer %}
 
+<script type="text/javascript" src="/js/showBalance.js"></script>
+
 {% endblock %}
 {% block body %}
 
+<section>
+    <div class="bg-white rounded-lg opacity-75 shadow-lg h5 p-3 mx-auto text-center font-weight-bold alert alert-dismissible fade show"
+        role="alert">
+        <span id="showBalance">asasdas</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</section>
 
 <article>
     <div class="container mt-2 p-2 h5 mx-auto">
@@ -43,7 +54,7 @@
                     {% endfor %}
                     <tr class="font-weight-bold">
                         <td colspan=' 2'>Total amount</td>
-                        <td>{{totalSumIncomes|number_format(2, '.', '')}}</td>
+                        <td id='sumOfIncome'>{{totalSumIncomes|number_format(2, '.', '')}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -68,7 +79,7 @@
                     {% set totalSumExpenses = totalSumExpenses + expense.sum %}
                     {% for individual in individual_expenses %}
                     {% if individual.nameOfCategory == expense.name %}
-                    <tr class='collapse' id='{{income.name}}'>
+                    <tr class='collapse' id='{{expense.name}}'>
                         <td colspan=' 2'>{{individual.individual_date}} {{individual.comment}}
                         </td>
                         <td>{{individual.individual_amount}}</td>
@@ -78,7 +89,7 @@
                     {% endfor %}
                     <tr class="font-weight-bold">
                         <td colspan=' 2'>Total amount</td>
-                        <td>{{totalSumExpenses|number_format(2, '.', '')}}</td>
+                        <td id='sumOfExpense'>{{totalSumExpenses|number_format(2, '.', '')}}</td>
                     </tr>
                 </tbody>
             </table>
