@@ -117,6 +117,8 @@ th[scope="row"] {
     border: 3px solid black;
 }
 
-tr.collapse.in {
-    display: table-row;
+.category:hover {
+    text-shadow: 1px 1px 2px rgb(26, 24, 25);
+    color: #74aa54;
+    background-color: white;
 }
