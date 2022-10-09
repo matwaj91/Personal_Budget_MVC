@@ -90,10 +90,6 @@ class Incomes extends \Core\Model
             $stmt = $db->query("SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name AS nameOfCategory, incomes.income_comment AS comment FROM incomes INNER JOIN incomes_category_assigned_to_users on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id WHERE incomes.user_id = '$userId' AND date_of_income BETWEEN '$dateFrom' AND '$dateTo'");
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-           /* echo "<pre>";
-                print_r($results);
-            echo "</pre>";*/
-
             return $results;
             
         }

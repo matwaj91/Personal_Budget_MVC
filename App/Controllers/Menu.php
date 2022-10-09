@@ -37,7 +37,37 @@ class Menu extends Authenticated
 		$_SESSION['dateTo'] = "$currentYear".'-'."$currentMonth".'-'."$daysOfNumber";
 	
 		View::renderTemplate('Menu/showBalance.html');
+	}
 
+	public function previousMonthAction()
+	{	
+		$previousMonth = date('m') -1;
+		if($previousMonth < 10){
+
+			$previousMonth = '0'."$previousMonth";
+		}
+
+		$previousMonthDaysOfNumber = date('t', strtotime("-1 MONTH"));
+
+		if($previousMonth == 12){
+
+			$year = date('Y') -1;
+		}
+		else $year = date('Y');
+		
+		$_SESSION['dateFrom'] =  "$year".'-'."$previousMonth".'-01';
+		$_SESSION['dateTo'] =  "$year".'-'."$previousMonth".'-'."$previousMonthDaysOfNumber";
+		
+		View::renderTemplate('Menu/showBalance.html');
+	}
+
+	public function currentYearAction()
+	{	
+		$currentYear = date('Y');
+		$_SESSION['dateFrom'] = "$currentYear".'-01-01';
+		$_SESSION['dateTo'] = "$currentYear".'-12-31';
+		
+		View::renderTemplate('Menu/showBalance.html');
 	}
 
 }
