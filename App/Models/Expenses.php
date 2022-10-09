@@ -101,7 +101,6 @@ class Expenses extends \Core\Model
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $results;
-            
         }
     }
 }

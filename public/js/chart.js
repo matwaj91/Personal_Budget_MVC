@@ -1,11 +1,11 @@
-/*google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
 
     var data = google.visualization.arrayToDataTable([
-        ['Kategoria', 'Kwota'],
-
+        ['Category', 'Amount'],
+        ['Example', '123'],
     ]);
 
     var options = {
@@ -16,4 +16,4 @@ function drawChart() {
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
-}*/
+}

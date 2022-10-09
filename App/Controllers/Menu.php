@@ -39,8 +39,8 @@ class Menu extends Authenticated
 		View::renderTemplate('Menu/showBalance.html');
 	}
 
-	public function previousMonthAction()
-	{	
+	public function previousMonthAction(){	
+
 		$previousMonth = date('m') -1;
 		if($previousMonth < 10){
 
@@ -61,8 +61,8 @@ class Menu extends Authenticated
 		View::renderTemplate('Menu/showBalance.html');
 	}
 
-	public function currentYearAction()
-	{	
+	public function currentYearAction(){	
+
 		$currentYear = date('Y');
 		$_SESSION['dateFrom'] = "$currentYear".'-01-01';
 		$_SESSION['dateTo'] = "$currentYear".'-12-31';
@@ -70,4 +70,19 @@ class Menu extends Authenticated
 		View::renderTemplate('Menu/showBalance.html');
 	}
 
+	public function nonstandardAction(){	
+
+		$_SESSION['dateFrom'] = $_POST['dateFrom'];
+		$_SESSION['dateTo'] = $_POST['dateTo'];	
+		
+		if(($_SESSION['dateFrom']) > ($_SESSION['dateTo'])){
+
+			Flash::addMessage('The specified date range is not valid as first chosen date cannot be later than the second one!', Flash::WARNING);
+
+			View::renderTemplate('Menu/main.html');
+		}
+		else {
+			View::renderTemplate('Menu/showBalance.html');
+		}
+	}
 }

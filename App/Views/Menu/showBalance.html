@@ -61,12 +61,22 @@
                 </tbody>
             </table>
 
+            <!--
             {% for expense in user_expenses %}
             {% set dataObjects = {
-            '{{expense.name}}' : '{{expense.sum}}',
-            subheading: entry.showSub ? entry.subheading : null,
-            } %}
+            '{{expense.name}}' : '{{expense.sum}}'} %}
             {% endfor %}
+
+            {% for expense in user_expenses %}
+            {% set dataArray = [{
+            '{{expense.name}}' : '{{expense.sum}}',
+            }] %}
+            {% endfor %}
+
+            {% for expense in user_expenses %}
+            {{expense.name}} {{expense.sum}}
+            {% endfor %}
+            -->
 
             <div class="mb-3 mt-0">
                 <h1 class="display-6 text-center p-0">Expenses</h1>
@@ -110,10 +120,6 @@
         </div>
     </div>
 </article>
-
-<script>
-
-</script>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="/js/chart.js"></script>
