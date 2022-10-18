@@ -158,7 +158,7 @@ class User extends \Core\Model
         $url = 'http://' . $_SERVER['HTTP_HOST'] . '/signup/activate/' . $this->activation_token;
 
         $text = View::getTemplate('Signup/activation_email.txt', ['url' => $url]);
-        $html = View::getTemplate('Signup/activation_email.html', ['url' => $url]);
+        $html = View::getTemplate('Signup/activation_email.twig', ['url' => $url]);
 		
 		Mail::send($this->email, 'Account activation', $html, $text);   
     }

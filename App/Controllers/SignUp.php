@@ -8,7 +8,7 @@ use \App\Models\User;
 class Signup extends \Core\Controller
 {
     public function newAction(){
-        View::renderTemplate('Signup/new.html');
+        View::renderTemplate('Signup/new.twig');
     }
 
     public function createAction(){
@@ -22,14 +22,14 @@ class Signup extends \Core\Controller
             
         } else {
 
-            View::renderTemplate('Signup/new.html', [
+            View::renderTemplate('Signup/new.twig', [
                 'user' => $user
             ]);
         }
     }
 
     public function successAction(){
-        View::renderTemplate('Signup/success.html');
+        View::renderTemplate('Signup/success.twig');
     }
 
 	public function activateAction(){
@@ -39,6 +39,6 @@ class Signup extends \Core\Controller
     }
 
     public function activatedAction(){
-        View::renderTemplate('Signup/activated.html');
+        View::renderTemplate('Signup/activated.twig');
     }
 }

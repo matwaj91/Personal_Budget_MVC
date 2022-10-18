@@ -10,7 +10,7 @@ use \App\Flash;
 class Expense extends \Core\Controller
 {
 	public function newAction(){
-        View::renderTemplate('Menu/addExpense.html');
+        View::renderTemplate('Menu/addExpense.twig');
     }
 
     public function addAction(){
@@ -24,7 +24,7 @@ class Expense extends \Core\Controller
 
         } else {
 
-            View::renderTemplate('Menu/addExpense.html',[
+            View::renderTemplate('Menu/addExpense.twig',[
                 'expense' => $expense
             ]);    
         }

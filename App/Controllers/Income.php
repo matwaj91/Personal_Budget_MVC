@@ -11,7 +11,7 @@ use \App\Models\displayIncomes;
 class Income extends \Core\Controller
 {
 	public function newAction(){
-        View::renderTemplate('Menu/addIncome.html');
+        View::renderTemplate('Menu/addIncome.twig');
     }
 
     public function addAction(){
@@ -25,7 +25,7 @@ class Income extends \Core\Controller
 
         } else {
 
-            View::renderTemplate('Menu/addIncome.html',[
+            View::renderTemplate('Menu/addIncome.twig',[
                 'income' => $income
             ]);    
         }

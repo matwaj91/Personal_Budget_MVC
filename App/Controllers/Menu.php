@@ -16,15 +16,15 @@ class Menu extends Authenticated
     }
 
 	public function mainAction(){	
-		View::renderTemplate('Menu/main.html');
+		View::renderTemplate('Menu/main.twig');
 	}
 
     public function incomeAction(){	
-		View::renderTemplate('Menu/addIncome.html');
+		View::renderTemplate('Menu/addIncome.twig');
 	}
 
     public function expenseAction(){	
-		View::renderTemplate('Menu/addExpense.html');
+		View::renderTemplate('Menu/addExpense.twig');
 	}
 
     public function currentMonthAction(){	
@@ -36,7 +36,7 @@ class Menu extends Authenticated
 		$_SESSION['dateFrom'] = "$currentYear".'-'."$currentMonth".'-01';
 		$_SESSION['dateTo'] = "$currentYear".'-'."$currentMonth".'-'."$daysOfNumber";
 	
-		View::renderTemplate('Menu/showBalance.html');
+		View::renderTemplate('Menu/showBalance.twig');
 	}
 
 	public function previousMonthAction(){	
@@ -58,7 +58,7 @@ class Menu extends Authenticated
 		$_SESSION['dateFrom'] =  "$year".'-'."$previousMonth".'-01';
 		$_SESSION['dateTo'] =  "$year".'-'."$previousMonth".'-'."$previousMonthDaysOfNumber";
 		
-		View::renderTemplate('Menu/showBalance.html');
+		View::renderTemplate('Menu/showBalance.twig');
 	}
 
 	public function currentYearAction(){	
@@ -67,7 +67,7 @@ class Menu extends Authenticated
 		$_SESSION['dateFrom'] = "$currentYear".'-01-01';
 		$_SESSION['dateTo'] = "$currentYear".'-12-31';
 		
-		View::renderTemplate('Menu/showBalance.html');
+		View::renderTemplate('Menu/showBalance.twig');
 	}
 
 	public function nonstandardAction(){	
@@ -79,10 +79,10 @@ class Menu extends Authenticated
 
 			Flash::addMessage('The specified date range is not valid as first chosen date cannot be later than the second one!', Flash::WARNING);
 
-			View::renderTemplate('Menu/main.html');
+			View::renderTemplate('Menu/main.twig');
 		}
 		else {
-			View::renderTemplate('Menu/showBalance.html');
+			View::renderTemplate('Menu/showBalance.twig');
 		}
 	}
 }

@@ -10,7 +10,7 @@ use \App\Flash;
 class Login extends \Core\Controller
 {
     public function newAction(){
-        View::renderTemplate('Home/index.html');
+        View::renderTemplate('Home/index.twig');
     }
 
     public function createAction(){
@@ -27,7 +27,7 @@ class Login extends \Core\Controller
 
             Flash::addMessage('Authenticated failed! Please check your credentials and try again.', Flash::WARNING);
 
-            View::renderTemplate('Home/index.html', [
+            View::renderTemplate('Home/index.twig', [
             'email' => $_POST['email'],
             'remember_me' => $remember_me
             ]);
