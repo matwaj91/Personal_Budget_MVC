@@ -18,13 +18,10 @@ class Income extends \Core\Controller
 		$income = new Incomes($_POST);
 
         if ($income->save()) {
-
             Flash::addMessage('Income has been added!');
-
             $this->redirect('/Menu/income');
 
         } else {
-
             View::renderTemplate('Menu/addIncome.twig',[
                 'income' => $income
             ]);    
@@ -32,7 +29,6 @@ class Income extends \Core\Controller
     }
 
     public function displayIncomesAction(){
-
 		Incomes::displayAllIncomes($_POST);
 	}
 }

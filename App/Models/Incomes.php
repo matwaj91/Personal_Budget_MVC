@@ -21,12 +21,14 @@ class Incomes extends \Core\Model
             $userId = $user->id;
             
             $db = static::getDB();
-            $stmt = $db->query("SELECT id FROM incomes_category_assigned_to_users WHERE user_id = '$userId' AND name ='$this->category'");
+            $stmt = $db->query("SELECT id FROM incomes_category_assigned_to_users 
+                                WHERE user_id = '$userId' AND name ='$this->category'");
+
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $income_category_id = $results[0]['id'];
 
             $sql = "INSERT INTO incomes(user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment) 
-            VALUES( :userId, :income_category_id, :amount, :date, :comment)";
+                    VALUES( :userId, :income_category_id, :amount, :date, :comment)";
             
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -62,7 +64,10 @@ class Incomes extends \Core\Model
 			}
 		
 			$db = static::getDB();
-            $stmt = $db->query("SELECT name, SUM(amount) AS sum FROM incomes,incomes_category_assigned_to_users AS category WHERE incomes.user_id = '$userId' AND category.id = incomes.income_category_assigned_to_user_id AND date_of_income BETWEEN '$dateFrom' AND '$dateTo' GROUP BY name");
+
+            $stmt = $db->query("SELECT name, SUM(amount) AS sum FROM incomes,incomes_category_assigned_to_users AS category 
+                                WHERE incomes.user_id = '$userId' AND category.id = incomes.income_category_assigned_to_user_id 
+                                AND date_of_income BETWEEN '$dateFrom' AND '$dateTo' GROUP BY name");
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $results;
@@ -76,22 +81,23 @@ class Incomes extends \Core\Model
             $userId = $user->id;
 
             if (isset($_SESSION['dateFrom']) && isset($_SESSION['dateTo']) ){
-
 			    $dateFrom = $_SESSION['dateFrom'];
 			    $dateTo =$_SESSION['dateTo'] ;
 
 			}else{
-
 			    $dateFrom = '';
 			    $dateTo = '';
 			}
 
             $db = static::getDB();
-            $stmt = $db->query("SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name AS nameOfCategory, incomes.income_comment AS comment FROM incomes INNER JOIN incomes_category_assigned_to_users on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id WHERE incomes.user_id = '$userId' AND date_of_income BETWEEN '$dateFrom' AND '$dateTo'");
+            $stmt = $db->query("SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name 
+                                AS nameOfCategory, incomes.income_comment AS comment FROM incomes INNER JOIN incomes_category_assigned_to_users 
+                                on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id 
+                                WHERE incomes.user_id = '$userId' AND date_of_income BETWEEN '$dateFrom' AND '$dateTo'");
+                                
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return $results;
-            
         }
     }
 }

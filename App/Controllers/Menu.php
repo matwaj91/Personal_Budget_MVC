@@ -78,7 +78,6 @@ class Menu extends Authenticated
 		if(($_SESSION['dateFrom']) > ($_SESSION['dateTo'])){
 
 			Flash::addMessage('The specified date range is not valid as first chosen date cannot be later than the second one!', Flash::WARNING);
-
 			View::renderTemplate('Menu/main.twig');
 		}
 		else {

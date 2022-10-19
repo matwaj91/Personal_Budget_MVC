@@ -17,13 +17,10 @@ class Expense extends \Core\Controller
 		$expense = new Expenses($_POST);
 
         if ($expense->save()) {
-
             Flash::addMessage('Expense has been added!');
-
             $this->redirect('/Menu/expense');
 
         } else {
-
             View::renderTemplate('Menu/addExpense.twig',[
                 'expense' => $expense
             ]);    

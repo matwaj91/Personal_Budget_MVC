@@ -38,7 +38,7 @@ class User extends \Core\Model
             $this->activation_token = $token->getValue();
             
             $sql='INSERT INTO users (username, email, password, activation_hash) 
-            VALUES(:name,  :email, :password, :activation_hash)';
+                  VALUES(:name,  :email, :password, :activation_hash)';
     
             $db=static::getDB();
             $stmt=$db->prepare($sql);
@@ -142,7 +142,7 @@ class User extends \Core\Model
         $this->expiry_timestamp = time() + 60 * 60 * 24 * 30; 
 
         $sql = 'INSERT INTO remembered_logins (token_hash, user_id, expires_at)
-                    VALUES (:token_hash, :user_id, :expires_at)';
+                VALUES (:token_hash, :user_id, :expires_at)';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
