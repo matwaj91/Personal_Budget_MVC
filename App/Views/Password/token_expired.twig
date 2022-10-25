@@ -1,0 +1,20 @@
+{% extends 'base.twig' %}
+
+{% block title %}Forgot password
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mx-auto">
+		<div class="bg-white text-center rounded-lg opacity-75 p-3 m-3 shadow-lg mx-auto col-9 col-sm-8 col-md-5 col-lg-5 col-xl-5 col-xxl-4">
+			<div>
+				<h2 class="p-1 m-1">Password reset link
+					<br>
+					invalid or expired</h2>
+				<a href="/password/forgot" class="text-decoration-none d-block greenButton p-1  text-white btn  mx-auto">Request another one
+				</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

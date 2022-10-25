@@ -1,0 +1,42 @@
+{% extends "base.twig" %}
+
+{% block title %}Forgot password
+{% endblock %}
+
+{% block footer %}
+	<script>
+		$(document).ready(function () {
+
+$('#formReset').validate({
+rules: {
+email: {
+required: true
+}
+},
+messages: {
+email: {
+required: 'Email is required'
+}
+}
+})
+});
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto">
+		<form action="/password/request-reset" method="post" id="formReset" class="bg-white rounded-lg opacity-75 shadow-lg p-3 m-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+			<div>
+				<h2 class="p-1 m-1 text-center">Trouble logging in?
+					<br>
+					Enter your email address</h2>
+				<div class="h5">
+					<input type="email" class="form-control font-weight-bold text-dark border-4 rounded-3" id="email" name="email" aria-describedby="email" required>
+				</div>
+				<button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Send password reset</button>
+				<a href="/home/index" class="text-decoration-none d-block blackButton p-1  text-white btn  mx-auto">Back to Login Page
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -21,6 +21,7 @@ $router->add('signup/activate/{token:[\da-f]+}', ['controller' => 'Signup', 'act
 $router->add('login', ['controller' => 'Login', 'action' => 'new']);
 $router->add('menu', ['controller' => 'Menu', 'action' => 'main']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'destroy']);
+$router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'action' => 'reset']);
 
     
 $router->dispatch($_SERVER['QUERY_STRING']);

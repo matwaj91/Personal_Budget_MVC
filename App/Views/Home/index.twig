@@ -1,77 +1,76 @@
 {% extends "base.twig" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
 
 {% block footer %}
 
-<script>
-    $(document).ready(function () {
+	<script>
+		$(document).ready(function () {
 
-        $('#formLogin').validate({
-            rules: {
-                name: 'required',
-                email: {
-                    required: true,
-                },
-                password: {
-                    required: true,
-                }
-            },
-            messages: {
-                password: {
-                    required: "Password is required",
-                },
-                email: {
-                    required: 'Email is required',
-                },
-            }
-        });
-    });
-</script>
+$('#formLogin').validate({
+rules: {
+name: 'required',
+email: {
+required: true
+},
+password: {
+required: true
+}
+},
+messages: {
+password: {
+required: "Password is required"
+},
+email: {
+required: 'Email is required'
+}
+}
+});
+});
+	</script>
 
 {% endblock %}
 
 {% block body %}
 
-<section>
-    <header>
-        <div>
-            <h1 class="display-1 text-center p-3">Personal Budget</h1>
-        </div>
-    </header>
-</section>
-<main>
-    <div class="container mt-1 p-3 h5 mx-auto">
-        <form action="/login/create" method="post" id="formLogin"
-            class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
-            <div class="form-group">
-                <label for="email" class="font-weight-normal text-black">Email address</label>
-                <input type="email" class="form-control font-weight-bold text-dark border-4 rounded-3" id="email"
-                    name="email" aria-describedby="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password" class="font-weight-normal text-black">Password</label>
-                <input type="password" class="form-control font-weight-bold text-dark border-4 rounded-3" id="password"
-                    name="password" required>
-            </div>
-            <div class="form-group">
-                <label class="font-weight-normal text-black ">Show me the Password!</label>
-                <i><span class="bi bi-eye-slash" id="togglePassword"></span></i>
-            </div>
-            <div class="form-group checkbox ">
-                <label class="font-weight-normal text-black">
-                    <input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %} />
-                    Remember me
-                </label>
-            </div>
-            <button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Log
-                In</button>
-            <a href="/signup/new"
-                class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Create
-                New
-                Account</a>
-        </form>
-    </div>
-</main>
+	<section>
+		<header>
+			<div>
+				<h1 class="display-1 text-center p-3">Personal Budget</h1>
+			</div>
+		</header>
+	</section>
+	<main>
+		<div class="container mt-1 p-3 h5 mx-auto">
+			<form action="/login/create" method="post" id="formLogin" class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+				<div class="form-group">
+					<label for="email" class="font-weight-normal text-black">Email address</label>
+					<input type="email" class="form-control font-weight-bold text-dark border-4 rounded-3" id="email" name="email" aria-describedby="email" required>
+				</div>
+				<div class="form-group">
+					<label for="password" class="font-weight-normal text-black">Password</label>
+					<input type="password" class="form-control font-weight-bold text-dark border-4 rounded-3" id="password" name="password" required>
+				</div>
+				<div class="h6">
+					<label class="font-weight-normal text-black ">Show me the Password!</label>
+					<i>
+						<span class="bi bi-eye-slash" id="togglePassword"></span>
+					</i>
+				</div>
+				<div class="h6 checkbox ">
+					<label class="font-weight-normal text-black">
+						<input type="checkbox" name="remember_me" {% if remember_me %} checked="checked" {% endif %}/>
+						Remember me!
+					</label>
+				</div>
+				<div class="h6">
+					<a href="/password/forgot" class="text-decoration-none text-black">Forgot password?</a>
+				</div>
+				<button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Log	In</button>
+				<a href="/signup/new" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Create New Account</a>
+			</form>
+		</div>
+	</main>
 
 {% endblock %}

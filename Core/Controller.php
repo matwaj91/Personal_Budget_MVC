@@ -10,13 +10,11 @@ abstract class Controller
 
     protected $route_params = [];
 
-    public function __construct($route_params)
-    {
+    public function __construct($route_params){
         $this->route_params = $route_params;
     }
 
-    public function __call($name, $args)
-    {
+    public function __call($name, $args){
         $method = $name . 'Action';
 
         if (method_exists($this, $method)) {
@@ -37,21 +35,18 @@ abstract class Controller
     {
     }
 
-    public function redirect($url)
-    {
-        header('Location: http://' . $_SERVER['HTTP_HOST'] . $url, true, 303);
+    public function redirect($url){
+        header('Location: https://' . $_SERVER['HTTP_HOST'] . $url, true, 303);
         exit;
     }
 
-    public function requireLogin()
-    {
+    public function requireLogin(){
         if (! Auth::getUser()) {
 
             Flash::addMessage('You must be logged in to access this page!', Flash::INFO);
-
             Auth::rememberRequestedPage();
 
-            $this->redirect('/login');
+            $this->redirect('/login/new');
         }
     }
 }
