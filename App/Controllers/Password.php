@@ -30,7 +30,6 @@ class Password extends \Core\Controller{
     public function resetPasswordAction(){
 
         $token = $_POST['token'];
-        echo "ssss";
         $user = $this->getUserOrExit($token);
 
         if ($user->resetPassword($_POST['password'])) {
