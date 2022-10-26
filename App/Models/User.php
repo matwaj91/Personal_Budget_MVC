@@ -202,17 +202,18 @@ class User extends \Core\Model
         $stmt->execute();
 
         $userId = $user->id;		 
-		$sql = "INSERT INTO incomes_category_assigned_to_users SELECT 'NULL','$userId',name FROM incomes_category_default";
+
+		$sql = "INSERT INTO incomes_category_assigned_to_users SELECT NULL,'$userId',name FROM incomes_category_default";
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
 		$stmt->execute();
 		
-		$sql = "INSERT INTO expenses_category_assigned_to_users SELECT 'NULL','$userId',name FROM expenses_category_default";
+		$sql = "INSERT INTO expenses_category_assigned_to_users SELECT NULL,'$userId',name FROM expenses_category_default";
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
 		$stmt->execute();
 		
-		$sql = "INSERT INTO payment_methods_assigned_to_users SELECT 'NULL','$userId',name FROM payment_methods_default";
+		$sql = "INSERT INTO payment_methods_assigned_to_users SELECT NULL,'$userId',name FROM payment_methods_default";
 		$db = static::getDB();
         $stmt = $db->prepare($sql);
 		$stmt->execute();

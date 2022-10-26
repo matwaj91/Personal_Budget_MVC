@@ -11,8 +11,7 @@
 $('#formExpense').validate({
 rules: {
 amount: 'required',
-category: 'required',
-comment: 'required'
+category: 'required'
 },
 messages: {
 amount: {
@@ -20,9 +19,6 @@ required: "Amount is required"
 },
 category: {
 required: "Category is required"
-},
-comment: {
-required: "Comment is required"
 }
 }
 });
@@ -86,7 +82,7 @@ required: "Comment is required"
 				</div>
 				<div class="form-group mx-auto">
 					<label for="comment" class="font-weight-normal text-black">Comment</label>
-					<textarea id="comment" name="comment" placeholder="Type something here. . . " rows="2" class="form-control font-weight-bold text-black border-4" required></textarea>
+					<textarea id="comment" name="comment" placeholder="Type something here. . . " rows="2" class="form-control font-weight-bold text-black border-4"></textarea>
 				</div>
 				<button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Add
 				</button>
