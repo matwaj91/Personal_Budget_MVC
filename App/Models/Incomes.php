@@ -19,20 +19,25 @@ class Incomes extends \Core\Model
         if($user = Auth::getUser()){
 
             $userId = $user->id;
+
+            $sql = "SELECT id FROM incomes_category_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
             
             $db = static::getDB();
-            $stmt = $db->query("SELECT id FROM incomes_category_assigned_to_users 
-                                WHERE user_id = '$userId' AND name ='$this->category'");
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+            $stmt->execute();
 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $income_category_id = $results[0]['id'];
+            $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
+            $income_category_id = $fetchArray['id'];
+
 
             $sql = "INSERT INTO incomes(user_id, income_category_assigned_to_user_id, amount, date_of_income, income_comment) 
                     VALUES( :userId, :income_category_id, :amount, :date, :comment)";
             
             $db = static::getDB();
             $stmt = $db->prepare($sql);
-
             $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
             $stmt->bindValue(':income_category_id', $income_category_id, PDO::PARAM_STR);
             $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);          
@@ -62,15 +67,19 @@ class Incomes extends \Core\Model
 			    $dateFrom = '';
 			    $dateTo = '';
 			}
+
+            $sql = "SELECT name, SUM(amount) AS sum FROM incomes,incomes_category_assigned_to_users AS category 
+                    WHERE incomes.user_id = :userId AND category.id = incomes.income_category_assigned_to_user_id 
+                    AND date_of_income BETWEEN :dateFrom AND :dateTo GROUP BY name";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':dateFrom', $dateFrom, PDO::PARAM_STR);
+            $stmt->bindValue(':dateTo', $dateTo, PDO::PARAM_STR);
+            $stmt->execute();
 		
-			$db = static::getDB();
-
-            $stmt = $db->query("SELECT name, SUM(amount) AS sum FROM incomes,incomes_category_assigned_to_users AS category 
-                                WHERE incomes.user_id = '$userId' AND category.id = incomes.income_category_assigned_to_user_id 
-                                AND date_of_income BETWEEN '$dateFrom' AND '$dateTo' GROUP BY name");
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $results;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 	}
 
@@ -89,15 +98,19 @@ class Incomes extends \Core\Model
 			    $dateTo = '';
 			}
 
-            $db = static::getDB();
-            $stmt = $db->query("SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name 
-                                AS nameOfCategory, incomes.income_comment AS comment FROM incomes INNER JOIN incomes_category_assigned_to_users 
-                                on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id 
-                                WHERE incomes.user_id = '$userId' AND date_of_income BETWEEN '$dateFrom' AND '$dateTo'");
+            $sql = "SELECT incomes.amount AS individual_amount, incomes.date_of_income AS individual_date, incomes_category_assigned_to_users.name 
+                    AS nameOfCategory, incomes.income_comment AS comment FROM incomes INNER JOIN incomes_category_assigned_to_users 
+                    on incomes.income_category_assigned_to_user_id = incomes_category_assigned_to_users.id 
+                    WHERE incomes.user_id = :userId AND date_of_income BETWEEN :dateFrom AND :dateTo";
                                 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $results;
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':dateFrom', $dateFrom, PDO::PARAM_STR);
+            $stmt->bindValue(':dateTo', $dateTo, PDO::PARAM_STR);
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 }

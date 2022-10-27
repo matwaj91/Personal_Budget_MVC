@@ -19,9 +19,12 @@ class Login extends \Core\Controller
         $remember_me = isset($_POST['remember_me']);
 
         if($user) {
+
             Auth::login($user, $remember_me);
             $this->redirect('/Menu/main');
+
         }else {
+            
             Flash::addMessage('Authenticated failed! Please check your credentials and try again.', Flash::WARNING);
             View::renderTemplate('Home/index.twig', [
             'email' => $_POST['email'],

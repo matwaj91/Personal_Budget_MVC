@@ -17,24 +17,35 @@ class Expenses extends \Core\Model {
     }
 
     public function save(){
+        
         if($user = Auth::getUser()){
             
             $userId = $user->id;
             
-            $db = static::getDB();
-            $stmt = $db->query("SELECT id FROM expenses_category_assigned_to_users WHERE user_id = '$userId' 
-                                AND name ='$this->category'");
+            $sql = "SELECT id FROM expenses_category_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $expense_category_id = $results[0]['id'];
-            
             $db = static::getDB();
-            $stmt = $db->query("SELECT id FROM payment_methods_assigned_to_users WHERE user_id = '$userId' 
-                                AND name ='$this->payment_method'");
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+            $stmt->execute();
 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $payment_method_id = $results[0]['id'];
-            
+            $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
+            $expense_category_id = $fetchArray['id'];
+
+            $sql = "SELECT id FROM payment_methods_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $this->payment, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
+            $payment_method_id = $fetchArray['id'];
+
             $sql = "INSERT INTO expenses(user_id, expense_category_assigned_to_user_id, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment) 
                     VALUES( :userId, :expense_category_id, :payment_method_id, :amount, :date, :comment)";
             
@@ -70,14 +81,18 @@ class Expenses extends \Core\Model {
 			    $dateTo = '';
 			}
 		
-			$db = static::getDB();
-            $stmt = $db->query("SELECT name, SUM(amount) AS sum FROM expenses,expenses_category_assigned_to_users 
-                                AS category WHERE expenses.user_id = '$userId' AND category.id = expenses.expense_category_assigned_to_user_id 
-                                AND date_of_expense BETWEEN '$dateFrom' AND '$dateTo' GROUP BY name");
+            $sql = "SELECT name, SUM(amount) AS sum FROM expenses,expenses_category_assigned_to_users AS category 
+                    WHERE expenses.user_id = :userId AND category.id = expenses.expense_category_assigned_to_user_id 
+                    AND date_of_expense BETWEEN :dateFrom AND :dateTo GROUP BY name";
 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':dateFrom', $dateFrom, PDO::PARAM_STR);
+            $stmt->bindValue(':dateTo', $dateTo, PDO::PARAM_STR);
+            $stmt->execute();
 
-            return $results;
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 	}
 
@@ -98,15 +113,19 @@ class Expenses extends \Core\Model {
 			    $dateTo = '';
 			}
 
-            $db = static::getDB();
-            $stmt = $db->query("SELECT expenses.amount AS individual_amount, expenses.date_of_expense 
-                                AS individual_date, expenses_category_assigned_to_users.name AS nameOfCategory, expenses.expense_comment 
-                                AS comment FROM expenses INNER JOIN expenses_category_assigned_to_users on expenses.expense_category_assigned_to_user_id = expenses_category_assigned_to_users.id 
-                                WHERE expenses.user_id = '$userId' AND date_of_expense BETWEEN '$dateFrom' AND '$dateTo'");
+            $sql = "SELECT expenses.amount AS individual_amount, expenses.date_of_expense 
+                    AS individual_date, expenses_category_assigned_to_users.name AS nameOfCategory, expenses.expense_comment 
+                    AS comment FROM expenses INNER JOIN expenses_category_assigned_to_users on expenses.expense_category_assigned_to_user_id = expenses_category_assigned_to_users.id 
+                    WHERE expenses.user_id = :userId AND date_of_expense BETWEEN :dateFrom AND :dateTo";
                                 
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            return $results;
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':dateFrom', $dateFrom, PDO::PARAM_STR);
+            $stmt->bindValue(':dateTo', $dateTo, PDO::PARAM_STR);
+            $stmt->execute();
+        
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 }

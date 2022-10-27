@@ -196,26 +196,30 @@ class User extends \Core\Model
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-
         $stmt->bindValue(':hashed_token', $hashed_token, PDO::PARAM_STR);
-
         $stmt->execute();
 
         $userId = $user->id;		 
 
-		$sql = "INSERT INTO incomes_category_assigned_to_users SELECT NULL,'$userId',name FROM incomes_category_default";
-		$db = static::getDB();
+		$sql = "INSERT INTO incomes_category_assigned_to_users SELECT NULL, :userId, name FROM incomes_category_default";
+		
+        $db = static::getDB();
         $stmt = $db->prepare($sql);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
 		$stmt->execute();
 		
-		$sql = "INSERT INTO expenses_category_assigned_to_users SELECT NULL,'$userId',name FROM expenses_category_default";
-		$db = static::getDB();
+		$sql = "INSERT INTO expenses_category_assigned_to_users SELECT NULL, :userId,name FROM expenses_category_default";
+		
+        $db = static::getDB();
         $stmt = $db->prepare($sql);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
 		$stmt->execute();
 		
-		$sql = "INSERT INTO payment_methods_assigned_to_users SELECT NULL,'$userId',name FROM payment_methods_default";
-		$db = static::getDB();
+		$sql = "INSERT INTO payment_methods_assigned_to_users SELECT NULL, :userId, name FROM payment_methods_default";
+		
+        $db = static::getDB();
         $stmt = $db->prepare($sql);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
 		$stmt->execute();
     }
 
