@@ -64,6 +64,16 @@ p {
     background-color: #222;
 }
 
+.redButton {
+    background-color: rgb(241, 82, 82);
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.redButton:hover {
+    background-color: rgb(243, 127, 127);
+}
+
 .alert {
     margin-top: 1px;
     border: 1px solid black;
