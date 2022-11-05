@@ -16,6 +16,23 @@ class Expenses extends \Core\Model {
         };
     }
 
+    public static function getUserExpensesCategories(){
+
+		if($user = Auth::getUser()){
+
+			$userId = $user->id;
+
+            $sql = "SELECT name FROM expenses_category_assigned_to_users WHERE user_id = :userId";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->execute();
+		
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+	}
+
     public function save(){
         
         if($user = Auth::getUser()){

@@ -35,8 +35,10 @@ class View
             $twig->addGlobal('individual_incomes',\App\Models\Incomes::getDataOfIndividualIncome());
             $twig->addGlobal('user_expenses',\App\Models\Expenses::getCategorySumExpenses());
             $twig->addGlobal('individual_expenses',\App\Models\Expenses::getDataOfIndividualExpense());
+            $twig->addGlobal('incomeCategories', \App\Models\Incomes::getUserIncomesCategories());
+            $twig->addGlobal('expenseCategories', \App\Models\Expenses::getUserExpensesCategories());
+            $twig->addGlobal('paymentMethods', \App\Models\PaymentMethods::getUserPaymentMethods());
         }
-
         return $twig->render($template, $args);
     }
 }

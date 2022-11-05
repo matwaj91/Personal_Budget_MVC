@@ -17,8 +17,7 @@ function drawIncomesChart() {
 
 const data = google.visualization.arrayToDataTable([[
 'Category', 'Amount'
-],{% for income in user_incomes %}
-[
+],{% for income in user_incomes %}[
 '{{ income.name }}', {{ income.sum | number_format(2, '.', '') }}
 ],{% endfor %}]);
 
@@ -38,8 +37,7 @@ function drawExpensesChart() {
 
 const data = google.visualization.arrayToDataTable([[
 'Category', 'Amount'
-],{% for expense in user_expenses %}
-[
+],{% for expense in user_expenses %}[
 '{{ expense.name }}', {{ expense.sum | number_format(2, '.', '') }}
 ],{% endfor %}]);
 

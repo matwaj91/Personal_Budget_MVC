@@ -46,10 +46,9 @@ required: "Category is required"
 					<label for="category" class="font-weight-normal text-black">Category</label>
 					<select class="form-control text-dark border-4 font-weight-bold" id="category" size="1" name="category" aria-describedby="category" required>
 						<option value="">--Please choose an option--</option>
-						<option value="salary">Salary</option>
-						<option value="interest">Interest</option>
-						<option value="allegro">Allegro</option>
-						<option value="another">Another</option>
+						{% for incomeCategory in incomeCategories %}
+							<option value="{{incomeCategory.name}}">{{incomeCategory.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 				<div class="form-group mx-auto">

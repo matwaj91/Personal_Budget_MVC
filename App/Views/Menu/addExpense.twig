@@ -50,31 +50,18 @@ required: "Payment method is required"
 					<label for="payment" class="font-weight-normal text-black">Payment method</label>
 					<select class="form-control text-dark border-4 font-weight-bold" id="payment" size="1" name="payment" aria-describedby="payment" required>
 						<option value="">--Please choose an option--</option>
-						<option value="cash">Cash</option>
-						<option value="debit card">Debit Card</option>
-						<option value="credit card">Credit Card</option>
+						{% for paymentMethod in paymentMethods %}
+							<option value="{{paymentMethod.name}}">{{paymentMethod.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 				<div class="form-group mx-auto">
 					<label for="category" class="font-weight-normal text-black">Category</label>
 					<select class="form-control text-dark border-4 font-weight-bold" id="category" size="1" name="category" aria-describedby="category" required>
 						<option value="">--Please choose an option--</option>
-						<option value="transport">Transport</option>
-						<option value="books">Books</option>
-						<option value="food">Food</option>
-						<option value="apartments">Apartments</option>
-						<option value="telecommunication">Telecommunication</option>
-						<option value="health">Health</option>
-						<option value="clothes">Clothes</option>
-						<option value="hygiene">Hygiene</option>
-						<option value="kids">Kids</option>
-						<option value="recreation">Recreation</option>
-						<option value="trip">Trip</option>
-						<option value="savings">Savings</option>
-						<option value="for retirement">For Retirement</option>
-						<option value="debt repayment">Debt Repayment</option>
-						<option value="gift">Gift</option>
-						<option value="another">Another</option>
+						{% for expenseCategory in expenseCategories %}
+							<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+						{% endfor %}
 					</select>
 				</div>
 				<div class="form-group mx-auto">

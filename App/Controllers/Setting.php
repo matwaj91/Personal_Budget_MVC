@@ -7,7 +7,7 @@ use \App\Auth;
 use \App\Flash;
 use \App\Models\AccountSettings;
 
-class Profile extends \Core\Controller{
+class Setting extends \Core\Controller{
 
     protected function before(){
 
@@ -23,9 +23,9 @@ class Profile extends \Core\Controller{
         ]);
     }
 
-    public function editAction(){
+    public function editAccountAction(){
 
-        View::renderTemplate('Profile/edit.twig', [
+        View::renderTemplate('Menu/editProfile.twig', [
             'user' => $this->user
         ]);
     }
@@ -40,7 +40,7 @@ class Profile extends \Core\Controller{
 
         } else {
 
-            View::renderTemplate('Profile/edit.twig', [
+            View::renderTemplate('Menu/editProfile.twig', [
                 'user' => $this->user
             ]);
         }

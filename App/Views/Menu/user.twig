@@ -10,13 +10,13 @@
 			<div class="mb-2">
 				<h1 class="display-6 text-center p-0">Account</h1>
 			</div>
-			<a href="/profile/edit" class="text-decoration-none greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Edit profile details</a>
+			<a href="/Menu/editProfile" class="text-decoration-none greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Edit profile details</a>
 			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#transactions">Delete all incomes and expenses</button>
 			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#account">Delete account</button>
 			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
 		</div>
 		<div class="modal fade" id="transactions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-			<form action="/profile/deleteTransactions" method="post">
+			<form action="/setting/deleteTransactions" method="post">
 				<div class="modal-dialog text-center">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -39,7 +39,7 @@
 			</form>
 		</div>
 		<div class="modal fade" id="account" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-			<form action="/profile/deleteAccount" method="post">
+			<form action="/setting/deleteAccount" method="post">
 				<div class="modal-dialog text-center">
 					<div class="modal-content">
 						<div class="modal-header">
