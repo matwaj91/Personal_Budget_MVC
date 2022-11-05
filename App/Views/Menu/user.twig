@@ -11,9 +11,55 @@
 				<h1 class="display-6 text-center p-0">Account</h1>
 			</div>
 			<a href="/profile/edit" class="text-decoration-none greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Edit profile details</a>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto">Delete all incomes and expenses</button>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto">Delete account</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#transactions">Delete all incomes and expenses</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#account">Delete account</button>
 			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
+		</div>
+		<div class="modal fade" id="transactions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="/profile/deleteTransactions" method="post">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete all incomes and expenses
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<label class="font-weight-normal text-black my-auto">Are you sure you want to delete all transactions?
+									<br/>All these items will be deleted immediately.<br/>This cannot be undone.</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
+							<button type="submit" class="redButton btn text-white">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal fade" id="account" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="/profile/deleteAccount" method="post">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete account
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<label class="font-weight-normal text-black my-auto">Are you sure you want to delete your account?
+									<br/>All your items will be deleted immediately.<br/>This cannot be undone.</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
+							<button type="submit" class="redButton btn text-white">Confirm</button>
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 

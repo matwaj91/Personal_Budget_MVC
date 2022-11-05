@@ -5,8 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
-use \App\Models\Settings;
-use \App\Models\Setchanges;
+use \App\Models\AccountSettings;
 
 class Profile extends \Core\Controller{
 
@@ -49,32 +48,32 @@ class Profile extends \Core\Controller{
 
     public function deleteTransactionsAction(){
 
-		$deleteTransaction = new Setchanges();
+		$deleteTransaction = new AccountSettings();
 
 		if($deleteTransaction->deleteAllTransactions()){
 
-			Flash::addMessage("All transactions have been deleted");
+			Flash::addMessage("All transactions have been deleted!");
 			$this->redirect('/Menu/main');
 		}
 		else{
             
-			Flash::addMessage("An unknown error occurred. Please try again", Flash::WARNING);
+			Flash::addMessage("An unknown error occurred. Please try again!", Flash::WARNING);
 			$this->redirect('/Menu/main');
 		}
 	}
 
-    /*public function deleteAccountAction(){
+    public function deleteAccountAction(){
 
-		if(Setchanges::deleteAccount()){		
+		if(AccountSettings::deleteAccount()){		
 
 			Auth::logout();
-			Flash::addMessage("Konto zostało usunięte");
+			Flash::addMessage("Account has been deleted");
 			$this->redirect('/');
 		}
 		else{
 
-			Flash::addMessage("Wystąpił błąd, spróbuj ponownie", Flash::WARNING);
+			Flash::addMessage("An unknown error occurred. Please try again!", Flash::WARNING);
 			$this->redirect('/');
 		}
-	}*/
+	}
 }
