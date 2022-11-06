@@ -6,12 +6,15 @@ use \Core\View;
 use \App\Models\Incomes;
 use \App\Auth;
 use \App\Flash;
-use \App\Models\displayIncomes;
 
-class Income extends \Core\Controller
-{
+class Income extends \Core\Controller{
+
 	public function newAction(){
         View::renderTemplate('Menu/addIncome.twig');
+    }
+
+    public function changeCategoryAction(){
+        View::renderTemplate('Menu/incomeCategories.twig');
     }
 
     public function addAction(){
@@ -27,8 +30,4 @@ class Income extends \Core\Controller
             ]);    
         }
     }
-
-    public function displayIncomesAction(){
-		Incomes::displayAllIncomes($_POST);
-	}
 }

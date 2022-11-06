@@ -25,7 +25,7 @@ class Login extends \Core\Controller
 
         }else {
             
-            Flash::addMessage('Authenticated failed! Please check your credentials and try again.', Flash::WARNING);
+            Flash::addMessage('Authenticated failed! Please check your credentials and try again', Flash::WARNING);
             View::renderTemplate('Home/index.twig', [
             'email' => $_POST['email'],
             'remember_me' => $remember_me

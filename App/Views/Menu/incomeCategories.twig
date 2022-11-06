@@ -1,6 +1,92 @@
 {% extends 'base.twig' %}
 
-{% block title %}Categories
+{% block title %}Income categories
 {% endblock %}
 
-{% block body %}{% endblock %}
+{% block footer %}
+
+	<script>
+		function resetModal() {
+document.getElementById("modalForm").reset();
+}
+
+function resetModal2() {
+document.getElementById("modalForm2").reset();
+}
+	</script>
+
+{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-2 p-2 h5 mx-auto">
+		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-9">
+			<div class="mb-3 mt-0">
+				<h1 class="display-6 text-center p-0">Categories of Income</h1>
+			</div>
+			<table class="table text-center p-0 h5">
+				<thead></thead>
+				<tbody>
+					{% for incomeCategory in incomeCategories %}
+						<tr>
+							<td>{{incomeCategory.name}}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#add" id="myBtn">Add New Category</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Category</button>
+			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
+		</div>
+		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="" method="post" id="modalForm">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Please provide the name of new category:
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<label for="category" class="font-weight-normal text-black my-auto"></label>
+								<input type="text" class="form-control" id="category">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal" onclick="resetModal()">Close</button>
+							<button type="submit" class="greenButton btn text-white">Add</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="" method="post" id="modalForm2">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete category
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<select class="form-control text-dark border-4 font-weight-bold my-auto" id="category" size="1" name="category" aria-describedby="category" required>
+									<option value="">--Please choose an option--</option>
+									{% for incomeCategory in incomeCategories %}
+										<option value="{{incomeCategory.name}}">{{incomeCategory.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal" onclick="resetModal2()">Close</button>
+							<button type="submit" class="redButton btn text-white">Delete</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

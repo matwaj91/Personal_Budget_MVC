@@ -5,14 +5,14 @@
 
 {% block body %}
 
-	<div class="container-fluid mt-4 p-2 h4 mx-auto">
-		<div class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+	<div class="container-fluid mt-2 p-2 h5 mx-auto">
+		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
 			<div class="mb-2">
 				<h1 class="display-6 text-center p-0">Account</h1>
 			</div>
-			<a href="/Menu/editProfile" class="text-decoration-none greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Edit profile details</a>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#transactions">Delete all incomes and expenses</button>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#account">Delete account</button>
+			<a href="/Setting/editAccount" class="text-decoration-none greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Edit Profile Details</a>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#transactions">Delete All Incomes and Expenses</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#account">Delete Account</button>
 			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
 		</div>
 		<div class="modal fade" id="transactions" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
@@ -32,7 +32,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
-							<button type="submit" class="redButton btn text-white">Confirm</button>
+							<button type="submit" class="redButton btn text-white">Delete</button>
 						</div>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
-							<button type="submit" class="redButton btn text-white">Confirm</button>
+							<button type="submit" class="redButton btn text-white">Delete</button>
 						</div>
 					</div>
 				</div>
