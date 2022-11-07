@@ -4,31 +4,29 @@
 {% endblock %}
 
 {% block footer %}
-
 	<script>
 		$(document).ready(function () {
 
-$('#formExpense').validate({
-rules: {
-amount: 'required',
-category: 'required',
-payment: 'required'
-},
-messages: {
-amount: {
-required: "Amount is required"
-},
-category: {
-required: "Category is required"
-},
-payment: {
-required: "Payment method is required"
-}
-}
-});
-});
+			$('#formExpense').validate({
+				rules: {
+					amount: 'required',
+					category: 'required',
+					payment: 'required'
+				},
+				messages: {
+					amount: {
+						required: "Amount is required"
+					},
+					category: {
+						required: "Category is required"
+					},
+					payment: {
+						required: "Payment method is required"
+					}
+				}
+			});
+		});
 	</script>
-
 {% endblock %}
 
 {% block body %}

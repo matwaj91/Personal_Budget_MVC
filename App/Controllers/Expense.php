@@ -13,6 +13,10 @@ class Expense extends \Core\Controller
         View::renderTemplate('Menu/addExpense.twig');
     }
 
+    public function changeCategoryAction(){
+        View::renderTemplate('Menu/expenseCategories.twig');
+    }
+
     public function addAction(){
 		$expense = new Expenses($_POST);
 
@@ -25,5 +29,10 @@ class Expense extends \Core\Controller
                 'expense' => $expense
             ]);    
         }
+    }
+
+    public function displayExpenseCategoriesAction(){
+
+        echo json_encode(Expenses::getUserExpensesCategories(), JSON_UNESCAPED_UNICODE);
     }
 }

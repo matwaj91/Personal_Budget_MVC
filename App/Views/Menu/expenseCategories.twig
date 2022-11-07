@@ -1,14 +1,14 @@
 {% extends 'base.twig' %}
 
-{% block title %}Income Categories
+{% block title %}Expense Categories
 {% endblock %}
 
 {% block body %}
 
 	<div class="container mt-2 p-2 h5 mx-auto">
-		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-9">
+		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-7 col-xl-6 col-xxl-8">
 			<div class="mb-3 mt-0">
-				<h1 class="display-6 text-center p-0">Categories of Income</h1>
+				<h1 class="display-6 text-center p-0">Categories of Expense</h1>
 			</div>
 			<table class="table text-center p-0 h5">
 				<thead></thead>
@@ -54,8 +54,8 @@
 							<div class="form-group mx-auto my-auto">
 								<select class="form-control text-dark border-4 font-weight-bold my-auto" id="category" size="1" name="category" aria-describedby="category" required>
 									<option value="">--Please choose an option--</option>
-									{% for incomeCategory in incomeCategories %}
-										<option value="{{incomeCategory.name}}">{{incomeCategory.name}}</option>
+									{% for expenseCategory in expenseCategories %}
+										<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
 									{% endfor %}
 								</select>
 							</div>
@@ -69,5 +69,5 @@
 			</form>
 		</div>
 	</div>
-	<script src="/js/incomeCategories.js"></script>
+	<script src="/js/expenseCategories.js"></script>
 {% endblock %}

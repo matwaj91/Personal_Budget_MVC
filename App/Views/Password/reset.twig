@@ -11,23 +11,23 @@
 	<script>
 		$(document).ready(function () {
 
-$('#formPassword').validate({
-rules: {
-password: {
-required: true,
-minlength: 6,
-validPassword: true
-}
-},
-messages: {
-password: {
-required: "Password is required",
-minlength: 'Must contain at least 6 characters',
-validPassword: 'Must contain at least one letter and one number'
-}
-}
-});
-});
+			$('#formPassword').validate({
+				rules: {
+					password: {
+						required: true,
+						minlength: 6,
+						validPassword: true
+					}
+				},
+				messages: {
+					password: {
+						required: "Password is required",
+						minlength: 'Must contain at least 6 characters',
+						validPassword: 'Must contain at least one letter and one number'
+					}
+				}
+			});
+		});
 	</script>
 
 {% endblock %}

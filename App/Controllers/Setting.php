@@ -6,6 +6,8 @@ use \Core\View;
 use \App\Auth;
 use \App\Flash;
 use \App\Models\AccountSettings;
+use \App\Models\PaymentMethods;
+
 
 class Setting extends \Core\Controller{
 
@@ -21,6 +23,10 @@ class Setting extends \Core\Controller{
         View::renderTemplate('Menu/user.twig', [
             'user' => $this->user
         ]);
+    }
+
+    public function changeCategoryAction(){
+        View::renderTemplate('Menu/paymentMethods.twig');
     }
 
     public function editAccountAction(){
@@ -76,4 +82,9 @@ class Setting extends \Core\Controller{
 			$this->redirect('/');
 		}
 	}
+
+    public function displayPaymentMethodsAction(){
+
+        echo json_encode(PaymentMethods::getUserPaymentMethods(), JSON_UNESCAPED_UNICODE);
+    }
 }

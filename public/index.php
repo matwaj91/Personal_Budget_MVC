@@ -23,7 +23,9 @@ $router->add('menu', ['controller' => 'Menu', 'action' => 'main']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'destroy']);
 $router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'action' => 'reset']);
 $router->add('income', ['controller' => 'Income', 'action' => 'new']);
-$router->add('incomeCategories', ['controller' => 'Income', 'action' => 'displayIncomesCategories']);
+$router->add('incomeCategories', ['controller' => 'Income', 'action' => 'displayIncomeCategories']);
+$router->add('expenseCategories', ['controller' => 'Expense', 'action' => 'displayExpenseCategories']);
+$router->add('paymentMethods', ['controller' => 'Setting', 'action' => 'displayPaymentMethods']);
 
     
-$router->dispatch($_SERVER['QUERY_STRING']);
+$router->dispatch($_SERVER['QUERY_STRING']); 

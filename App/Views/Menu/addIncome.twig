@@ -8,21 +8,22 @@
 	<script>
 		$(document).ready(function () {
 
-$('#formIncome').validate({
-rules: {
-amount: 'required',
-category: 'required'
-},
-messages: {
-amount: {
-required: "Amount is required"
-},
-category: {
-required: "Category is required"
-}
-}
-});
-});
+			$('#formIncome').validate({
+				rules: {
+					amount: 'required',
+					category: 'required'
+				},
+				messages: {
+					amount: {
+						required: "Amount is required"
+					},
+					category: {
+						required: "Category is required"
+					}
+				}
+			});
+		});
+		
 	</script>
 
 {% endblock %}

@@ -4,59 +4,51 @@
 {% endblock %}
 
 {% block footer %}
-
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="/js/showBalance.js"></script>
 	<script>
 		google.charts.load('current', {'packages': ['corechart']});
-google.charts.setOnLoadCallback(drawIncomesChart);
-google.charts.setOnLoadCallback(drawExpensesChart);
+		google.charts.setOnLoadCallback(drawIncomesChart);
+		google.charts.setOnLoadCallback(drawExpensesChart);
 
-function drawIncomesChart() {
+		function drawIncomesChart() {
 
-const data = google.visualization.arrayToDataTable([[
-'Category', 'Amount'
-],{% for income in user_incomes %}[
-'{{ income.name }}', {{ income.sum | number_format(2, '.', '') }}
-],{% endfor %}]);
+			const data = google.visualization.arrayToDataTable([
 
-var options = {
-is3D: true,
-'fontSize': 13,
-'legendFontSize': 13,
-'width': 360,
-'height': 200
-};
+				['Category', 'Amount'],
+				{% for income in user_incomes %}
+				['{{ income.name }}', {{ income.sum | number_format(2, '.', '') }}],
+				{% endfor %}
+			]);
 
-var chart = new google.visualization.PieChart(document.getElementById('incomesPieChart'));
-chart.draw(data, options);
-}
+			var options = { is3D: true, 'fontSize': 14, 'legendFontSize': 14, 
+							chartArea: {width: '100%'}}
 
-function drawExpensesChart() {
+			var chart = new google.visualization.PieChart(document.getElementById('incomesPieChart'));
+			chart.draw(data, options);
+		}
 
-const data = google.visualization.arrayToDataTable([[
-'Category', 'Amount'
-],{% for expense in user_expenses %}[
-'{{ expense.name }}', {{ expense.sum | number_format(2, '.', '') }}
-],{% endfor %}]);
+		function drawExpensesChart() {
 
-var options = {
-is3D: true,
-'fontSize': 13,
-'legendFontSize': 13,
-'width': 360,
-'height': 200
-};
+			const data = google.visualization.arrayToDataTable([
 
-var chart = new google.visualization.PieChart(document.getElementById('expensesPieChart'));
-chart.draw(data, options);
-}
+				['Category', 'Amount'],
+				{% for expense in user_expenses %}
+				['{{ expense.name }}', {{ expense.sum | number_format(2, '.', '') }}],
+				{% endfor %}
+			]);
+
+			var options = { is3D: true, 'fontSize': 14, 'legendFontSize': 14, 
+							chartArea: {width: '100%'}, colors: ['#111111', '#AAAAAA', '#434343', '#505050', '##212180']}
+
+			var chart = new google.visualization.PieChart(document.getElementById('expensesPieChart'));
+			chart.draw(data, options);
+		}
 	</script>
-
 {% endblock %}
-{% block body %}
 
+{% block body %}
 	<div class="bg-white rounded-lg opacity-75 shadow-lg h5 p-3 mx-auto text-center font-weight-bold alert alert-dismissible fade show" role="alert">
 		<span id="showBalance"></span>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -64,7 +56,7 @@ chart.draw(data, options);
 		</button>
 	</div>
 	<div class="container mt-2 p-2 h5 mx-auto">
-		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-9">
+		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-11 col-sm-10 col-md-8 col-lg-7 col-xl-7 col-xxl-6">
 			<div class="mb-3 mt-0">
 				<h1 class="display-6 text-center p-0">Incomes</h1>
 			</div>
@@ -102,7 +94,7 @@ chart.draw(data, options);
 				</tbody>
 			</table>
 			{% if user_incomes is not empty %}
-				<div id="incomesPieChart" class="mx-auto mt-0 text-center"></div>
+				<div id="incomesPieChart" class="mx-auto mt-0 text-center" style="width: 385px; height: 200px;"></div>
 			{% endif %}
 			<div class="mb-3 mt-0">
 				<h1 class="display-6 text-center p-0">Expenses</h1>
@@ -141,7 +133,7 @@ chart.draw(data, options);
 				</tbody>
 			</table>
 			{% if user_expenses is not empty %}
-				<div id="expensesPieChart" class="mx-auto mt-0 text-center"></div>
+				<div id="expensesPieChart" class="mx-auto mt-0 text-center" style="width: 385px; height: 200px;"></div>
 			{% endif %}
 		</div>
 	</div>

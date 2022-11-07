@@ -4,36 +4,33 @@
 {% endblock %}
 
 {% block footer %}
-
 	<script>
 		$(document).ready(function () {
 
-$('#formLogin').validate({
-rules: {
-name: 'required',
-email: {
-required: true
-},
-password: {
-required: true
-}
-},
-messages: {
-password: {
-required: "Password is required"
-},
-email: {
-required: 'Email is required'
-}
-}
-});
-});
+			$('#formLogin').validate({
+				rules: {
+					name: 'required',
+					email: {
+						required: true
+					},
+					password: {
+						required: true
+					}
+				},
+				messages: {
+					password: {
+						required: "Password is required"
+					},
+					email: {
+						required: 'Email is required'
+					}
+				}
+			});
+		});
 	</script>
-
 {% endblock %}
 
 {% block body %}
-
 	<section>
 		<header>
 			<div>
@@ -72,5 +69,4 @@ required: 'Email is required'
 			</form>
 		</div>
 	</main>
-
 {% endblock %}

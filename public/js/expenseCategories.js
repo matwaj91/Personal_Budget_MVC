@@ -6,7 +6,7 @@ function resetModal2() {
     document.getElementById("modalForm2").reset();
 }
 
-fetch("/incomeCategories").then((data) => {
+fetch("/expenseCategories").then((data) => {
 
     return data.json();
 }).then((objectData) => {
@@ -15,8 +15,8 @@ fetch("/incomeCategories").then((data) => {
     objectData.map((values) => {
 
         tableData += ` <tr>
-        <td>${values.name}</td>
-        </tr>`;
+		<td>${values.name}</td>
+		</tr>`;
     });
 
     document.getElementById("tableBody").innerHTML = tableData;
