@@ -3,20 +3,6 @@
 {% block title %}Income categories
 {% endblock %}
 
-{% block footer %}
-
-	<script>
-		function resetModal() {
-document.getElementById("modalForm").reset();
-}
-
-function resetModal2() {
-document.getElementById("modalForm2").reset();
-}
-	</script>
-
-{% endblock %}
-
 {% block body %}
 
 	<div class="container mt-2 p-2 h5 mx-auto">
@@ -26,13 +12,7 @@ document.getElementById("modalForm2").reset();
 			</div>
 			<table class="table text-center p-0 h5">
 				<thead></thead>
-				<tbody>
-					{% for incomeCategory in incomeCategories %}
-						<tr>
-							<td>{{incomeCategory.name}}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
+				<tbody id="tableBody"></tbody>
 			</table>
 			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#add" id="myBtn">Add New Category</button>
 			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Category</button>
@@ -89,4 +69,5 @@ document.getElementById("modalForm2").reset();
 			</form>
 		</div>
 	</div>
+	<script src="/js/incomeCategories.js"></script>
 {% endblock %}

@@ -23,6 +23,7 @@ $router->add('menu', ['controller' => 'Menu', 'action' => 'main']);
 $router->add('logout', ['controller' => 'Login', 'action' => 'destroy']);
 $router->add('password/reset/{token:[\da-f]+}', ['controller' => 'Password', 'action' => 'reset']);
 $router->add('income', ['controller' => 'Income', 'action' => 'new']);
+$router->add('incomeCategories', ['controller' => 'Income', 'action' => 'displayIncomesCategories']);
 
     
 $router->dispatch($_SERVER['QUERY_STRING']);

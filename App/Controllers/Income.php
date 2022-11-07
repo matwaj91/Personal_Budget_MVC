@@ -30,4 +30,9 @@ class Income extends \Core\Controller{
             ]);    
         }
     }
+
+    public function displayIncomesCategoriesAction(){
+
+        echo json_encode(Incomes::getUserIncomesCategories(), JSON_UNESCAPED_UNICODE);
+    }
 }
