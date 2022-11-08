@@ -130,4 +130,42 @@ class Incomes extends \Core\Model
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    public function checkIfCategoryExists($newCategoryName)
+	{
+		if($user = Auth::getUser())
+		{
+            $results = $this->getUserIncomesCategories();
+			
+			foreach($results as $result){
+
+				if($result['name'] == $newCategoryName)
+				return false;
+			}
+			return true;
+		}				
+	}
+
+    public function addCategory(){
+        
+		$this->category = strtolower($this->category); //The strtolower() function is used to convert a string into lowercase.
+		$newCategory = ucfirst($this->category); //Make a string's first character uppercase
+
+        if($this->checkIfCategoryExists($newCategory)){
+
+            if($user = Auth::getUser()) {
+
+                $userId = $user->id;		
+                
+                $sql = "INSERT INTO incomes_category_assigned_to_users(user_id, name) VALUES( :userId, :category)";
+                    
+                $db = static::getDB();
+                $stmt = $db->prepare($sql);
+                $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+                $stmt->bindValue(':category', $newCategory, PDO::PARAM_STR);
+                
+                return $stmt->execute();
+            }
+        }
+    }	
 }

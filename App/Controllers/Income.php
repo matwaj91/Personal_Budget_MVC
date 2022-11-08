@@ -10,21 +10,26 @@ use \App\Flash;
 class Income extends \Core\Controller{
 
 	public function newAction(){
+
         View::renderTemplate('Menu/addIncome.twig');
     }
 
     public function changeCategoryAction(){
+
         View::renderTemplate('Menu/incomeCategories.twig');
     }
 
     public function addAction(){
+
 		$income = new Incomes($_POST);
 
         if ($income->save()) {
+
             Flash::addMessage('Income has been added!');
             $this->redirect('/Menu/income');
 
         } else {
+
             View::renderTemplate('Menu/addIncome.twig',[
                 'income' => $income
             ]);    
@@ -35,4 +40,20 @@ class Income extends \Core\Controller{
 
         echo json_encode(Incomes::getUserIncomesCategories(), JSON_UNESCAPED_UNICODE);
     }
+
+    public function addCategoryAction(){
+
+		$newCategory = new Incomes($_POST);
+
+		if($newCategory->addCategory()){
+
+			Flash::addMessage("New category has been added!");
+			View::renderTemplate('Menu/incomeCategories.twig');
+		}
+        else{
+
+            Flash::addMessage("Category already exists!", Flash::WARNING);
+			View::renderTemplate('Menu/incomeCategories.twig');
+        }
+	}
 }
