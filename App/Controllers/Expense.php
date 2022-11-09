@@ -35,4 +35,35 @@ class Expense extends \Core\Controller
 
         echo json_encode(Expenses::getUserExpensesCategories(), JSON_UNESCAPED_UNICODE);
     }
+
+    public function addCategoryAction(){
+
+		$newCategory = new Expenses($_POST);
+
+		if($newCategory->addCategory()){
+
+			Flash::addMessage("New category has been added!");
+			View::renderTemplate('Menu/expenseCategories.twig');
+		}
+        else{
+
+            Flash::addMessage("Category already exists!", Flash::WARNING);
+			View::renderTemplate('Menu/expenseCategories.twig');
+        }
+	}
+
+    public function deleteCategoryAction(){
+
+		$deleteCategory = new Expenses($_POST);
+
+		if($deleteCategory->deleteCategory()){
+
+			Flash::addMessage("Selected category has been deleted!");
+			View::renderTemplate('Menu/expenseCategories.twig');
+		}
+        else{
+            //Flash::addMessage("", Flash::WARNING);
+			//View::renderTemplate('Menu/expenseCategories.twig');
+        }
+	}
 }

@@ -145,4 +145,82 @@ class Expenses extends \Core\Model {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    public function checkIfCategoryExists($newCategoryName)
+	{
+		if($user = Auth::getUser())
+		{
+            $results = $this->getUserExpensesCategories();
+			
+			foreach($results as $result){
+
+				if($result['name'] == $newCategoryName)
+				return false;
+			}
+			return true;
+		}				
+	}
+
+    public function addCategory(){
+        
+		$this->category = strtolower($this->category); //The strtolower() function is used to convert a string into lowercase.
+		$newCategory = ucfirst($this->category); //Make a string's first character uppercase
+
+        if($this->checkIfCategoryExists($newCategory)){
+
+            if($user = Auth::getUser()) {
+
+                $userId = $user->id;		
+                
+                $sql = "INSERT INTO expenses_category_assigned_to_users(user_id, name) VALUES( :userId, :category)";
+                    
+                $db = static::getDB();
+                $stmt = $db->prepare($sql);
+                $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+                $stmt->bindValue(':category', $newCategory, PDO::PARAM_STR);
+                
+                return $stmt->execute();
+            }
+        }
+    }
+
+    public function getCategoryId($deleteCategoryName)
+	{
+		if($user = Auth::getUser()){
+
+			$userId = $user->id;
+				
+			$sql = "SELECT id FROM expenses_category_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
+            
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $deleteCategoryName, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $fetchArray['id'] ?? 'default value';
+		}
+	}
+
+    public function deleteSelectedFromCategories($id){
+			
+        $sql = "DELETE FROM expenses_category_assigned_to_users WHERE id = :id";
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+	}
+
+    public function deleteCategory(){
+
+		$categoryId = $this->getCategoryId($this->category);
+				
+		$this->deleteSelectedFromCategories($categoryId);
+
+        return true;
+	}
 }
