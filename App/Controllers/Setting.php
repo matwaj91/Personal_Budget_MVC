@@ -87,4 +87,31 @@ class Setting extends \Core\Controller{
 
         echo json_encode(PaymentMethods::getUserPaymentMethods(), JSON_UNESCAPED_UNICODE);
     }
+
+    public function addPaymentMethodAction(){
+
+		$newPaymentMethod = new PaymentMethods($_POST);
+
+		if($newPaymentMethod->addPaymentMethod()){
+
+			Flash::addMessage("New payment method has been added!");
+			View::renderTemplate('Menu/paymentMethods.twig');
+		}
+        else{
+
+            Flash::addMessage("Payment method already exists!", Flash::WARNING);
+			View::renderTemplate('Menu/paymentMethods.twig');
+        }
+	}
+
+    public function deletePaymentMethodAction(){
+
+		$deleteCategory = new Incomes($_POST);
+
+		if($deleteCategory->deletePaymentMethod()){
+
+			Flash::addMessage("Selected category has been deleted!");
+			View::renderTemplate('Menu/incomeCategories.twig');
+		}
+	}
 }

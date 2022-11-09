@@ -13,20 +13,20 @@
 				<thead></thead>
 				<tbody id="tableBody"></tbody>
 			</table>
-			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#add" id="myBtn">Add New Category</button>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Category</button>
+			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#add" id="myBtn">Add New Payment Method</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Payment Method</button>
 			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
 		</div>
 		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-			<form action="" method="post" id="modalForm">
+			<form action="/setting/addPaymentMethod" method="post" id="modalForm">
 				<div class="modal-dialog text-center">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Please provide the name of new category:
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Please provide the name of new method:
 							</h5>
 							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
 						</div>
-						<div class="modal-body h5">
+						<div class="modal-body h5 mb-4">
 							<div class="form-group mx-auto my-auto">
 								<label for="category" class="font-weight-normal text-black my-auto"></label>
 								<input type="text" class="form-control" id="category">
@@ -41,11 +41,11 @@
 			</form>
 		</div>
 		<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-			<form action="" method="post" id="modalForm2">
+			<form action="/setting/deletePaymentMethod" method="post" id="modalForm2">
 				<div class="modal-dialog text-center">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete category
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete payment method
 							</h5>
 							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
 						</div>

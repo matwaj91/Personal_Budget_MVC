@@ -167,5 +167,45 @@ class Incomes extends \Core\Model
                 return $stmt->execute();
             }
         }
-    }	
+    }
+    
+    public function getCategoryId($deleteCategoryName)
+	{
+		if($user = Auth::getUser()){
+
+			$userId = $user->id;
+				
+			$sql = "SELECT id FROM incomes_category_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
+            
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $deleteCategoryName, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $fetchArray['id'] ?? 'default value';
+		}
+	}
+
+    public function deleteSelectedFromCategories($id){
+			
+        $sql = "DELETE FROM incomes_category_assigned_to_users WHERE id = :id";
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+	}
+
+    public function deleteCategory(){
+
+		$categoryId = $this->getCategoryId($this->category);
+				
+		$this->deleteSelectedFromCategories($categoryId);
+
+        return true;
+	}
 }

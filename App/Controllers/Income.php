@@ -56,4 +56,15 @@ class Income extends \Core\Controller{
 			View::renderTemplate('Menu/incomeCategories.twig');
         }
 	}
+
+    public function deleteCategoryAction(){
+
+		$deleteCategory = new Incomes($_POST);
+
+		if($deleteCategory->deleteCategory()){
+
+			Flash::addMessage("Selected category has been deleted!");
+			View::renderTemplate('Menu/incomeCategories.twig');
+		}
+	}
 }
