@@ -106,12 +106,12 @@ class Setting extends \Core\Controller{
 
     public function deletePaymentMethodAction(){
 
-		$deleteCategory = new Incomes($_POST);
+		$deleteCategory = new PaymentMethods($_POST);
 
 		if($deleteCategory->deletePaymentMethod()){
 
-			Flash::addMessage("Selected category has been deleted!");
-			View::renderTemplate('Menu/incomeCategories.twig');
+			Flash::addMessage("Selected payment method has been deleted!");
+			View::renderTemplate('Menu/paymentMethods.twig');
 		}
 	}
 }
