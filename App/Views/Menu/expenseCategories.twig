@@ -14,9 +14,9 @@
 				<thead></thead>
 				<tbody id="tableBody"></tbody>
 			</table>
+			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#set">Set Spending Limit</button>
 			<button type="button" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#add" id="myBtn">Add New Category</button>
 			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Category</button>
-			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#">Set Spending Limit</button>
 			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
 		</div>
 		<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
@@ -54,9 +54,11 @@
 						<div class="modal-body h5">
 							<div class="form-group mx-auto my-auto">
 								<select class="form-control text-dark border-4 font-weight-bold my-auto" id="category" size="1" name="category" aria-describedby="category" required>
-									<option value="">--Please choose an option--</option>
+									<option value="">--Please choose the category--</option>
 									{% for expenseCategory in expenseCategories %}
-										<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+										{% if expenseCategory.name != "Another" %}
+											<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+										{% endif %}
 									{% endfor %}
 								</select>
 							</div>
@@ -64,6 +66,37 @@
 						<div class="modal-footer">
 							<button type="button" class="blackButton text-white btn" data-dismiss="modal" onclick="resetModal2()">Close</button>
 							<button type="submit" class="redButton btn text-white">Delete</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal fade" id="set" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="" method="post" id="modalForm3">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Set spending limit
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h6">
+							<div class=" mx-auto mb-4">
+								<select class="form-control text-dark border-4 font-weight-bold my-auto p-1" id="category" size="1" name="category" aria-describedby="category" required>
+									<option value="">--Please choose the category--</option>
+									{% for expenseCategory in expenseCategories %}
+										<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div>
+								<input type="number" min="0" step="0.01" class="myinput form-control font-weight-bold text-dark border-4" id="limit" name="limit" value="" placeholder="Please provide monthly limit" aria-describedby="limit" required>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal" onclick="resetModal3()">Close</button>
+							<button type="submit" class="greenButton btn text-white">Set</button>
 						</div>
 					</div>
 				</div>

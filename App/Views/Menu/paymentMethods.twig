@@ -52,7 +52,7 @@
 						<div class="modal-body h5">
 							<div class="form-group mx-auto my-auto">
 								<select class="form-control text-dark border-4 font-weight-bold my-auto" id="payment" size="1" name="payment" aria-describedby="category" required>
-									<option value="">--Please choose an option--</option>
+									<option value="">--Please choose the payment method--</option>
 									{% for paymentMethod in paymentMethods %}
 										<option value="{{paymentMethod.name}}">{{paymentMethod.name}}</option>
 									{% endfor %}

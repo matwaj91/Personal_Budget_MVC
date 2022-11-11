@@ -62,8 +62,24 @@ class Expense extends \Core\Controller
 			View::renderTemplate('Menu/expenseCategories.twig');
 		}
         else{
-            //Flash::addMessage("", Flash::WARNING);
-			//View::renderTemplate('Menu/expenseCategories.twig');
+            Flash::addMessage("There are already saved expenses in the category you want to delete!", Flash::WARNING);
+			View::renderTemplate('Menu/deleteExpenseCategory.twig');
         }
+	}
+
+    public function deleteCategoryIfTransactionsExistAction(){
+		
+		$existCategoryTransactions = new Expenses($_POST);
+		
+		if($existCategoryTransactions->deleteCategoryWithTransactions() == 1 ){
+
+			Flash::addMessage("Category and all assigned expenses have been deleted!");
+			View::renderTemplate('Menu/expenseCategories.twig');
+		}
+		else if ($existCategoryTransactions->deleteCategoryWithTransactions() == 2 ){
+
+			Flash::addMessage('Category has been deleted and all assigned transactions have been transferred to category "Another"!');
+			View::renderTemplate('Menu/expenseCategories.twig');
+		}
 	}
 }
