@@ -82,4 +82,20 @@ class Expense extends \Core\Controller
 			View::renderTemplate('Menu/expenseCategories.twig');
 		}
 	}
+
+    public function setLimitAction(){
+
+        $categoryLimit = new Expenses($_POST);
+        
+        if($categoryLimit->setLimit()){
+
+            Flash::addMessage("Spending limit for selected category has been set!");
+            View::renderTemplate('Menu/expenseCategories.twig');
+        }
+        else{
+
+            Flash::addMessage("Invalid data. Please provide a natural number between 1 and 100000!", Flash::WARNING);
+            View::renderTemplate('Menu/expenseCategories.twig');
+        }
+    }
 }

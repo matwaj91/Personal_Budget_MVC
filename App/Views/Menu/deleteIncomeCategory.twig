@@ -1,0 +1,63 @@
+{% extends 'base.twig' %}
+
+{% block title %}Delete Income Category
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid mt-2 p-2 h5 mx-auto">
+		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4">
+			<div class="mb-2">
+				<h1 class="display-6 text-center p-0">Delete Income Category</h1>
+			</div>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#delete">Delete Category and All Assigned Incomes</button>
+			<button type="button" class="redButton my-3 p-1 d-block text-white btn btn-block mx-auto" data-toggle="modal" data-target="#transfer">Transfer All Incomes To Category "Another"</button>
+			<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
+		</div>
+		<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="/income/deleteCategoryIfTransactionsExist" method="post">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete Income Category
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<label class="font-weight-normal text-black my-auto">Are you sure you want to delete category and all assigned transactions?
+								All these items will be deleted immediately.This cannot be undone.</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
+							<button type="submit" class="redButton btn text-white"  id="deleteCategory" value="delete" name="deleteCategory">Delete</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal fade" id="transfer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+			<form action="/income/deleteCategoryIfTransactionsExist" method="post">
+				<div class="modal-dialog text-center">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title font-weight-bold" id="exampleModalLabel">Delete Income Category
+							</h5>
+							<button type="button" class="btn-close " data-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body h5">
+							<div class="form-group mx-auto my-auto">
+								<label class="font-weight-normal text-black my-auto">Are you sure you want to delete category 
+                                and transfer all assigned transactions to category "Another"?</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="blackButton text-white btn" data-dismiss="modal">Close</button>
+							<button type="submit" class="redButton btn text-white" id="deleteCategory" value="transfer" name="deleteCategory">Delete</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}

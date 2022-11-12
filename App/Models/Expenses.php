@@ -284,13 +284,72 @@ class Expenses extends \Core\Model {
 			$this->deleteSelectedFromCategories($categoryId);
 			return 1;
 		}
-		else if($this->deleteCategory == "transfer")
-		{
+		else if($this->deleteCategory == "transfer"){
+
 			$this->transferTransaction($categoryId);
             $this->deleteSelectedFromCategories($categoryId);
 			return 2;
 		}
     }
 
+    public function validateLimit(){
 
+        $amountInteger = $_POST['limitAmount'];
+
+        $amountString = (string)$amountInteger;
+
+        if($amountString[0] == "0"){
+
+            return false;
+        }
+        
+        if ($this->limitAmount == ''){
+            
+            return false;
+        }
+    
+        if (!is_numeric($this->limitAmount)){
+
+            return false;
+        }
+
+        if ($this->limitAmount > 100000){
+            
+            return false;
+        }
+                    
+        $dot = '.';
+        $checkIfDotExists = strpos($this->limitAmount, $dot); //Find the position of the first occurrence of "."
+        
+        if($checkIfDotExists == true){
+
+            return false;
+        }
+        
+        return true;
+	}
+
+    public function setLimit(){
+
+		if($this->validateLimit()){
+
+			if($user = Auth::getUser()){
+
+				$userId = $user->id;
+				
+				$sql = "UPDATE expenses_category_assigned_to_users SET category_limit = :limitAmount WHERE name = :name AND user_id = :userId";
+
+				$db = static::getDB();
+				$stmt = $db->prepare($sql);
+                $stmt->bindValue(':limitAmount', $this->limitAmount, PDO::PARAM_INT);
+                $stmt->bindValue(':name', $this->category, PDO::PARAM_STR);
+                $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+				$stmt->execute();
+
+				return true;
+			}
+		}
+
+		else return false;
+	}
 }

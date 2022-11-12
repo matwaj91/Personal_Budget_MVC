@@ -73,7 +73,7 @@
 		</div>
 	</div>
 	<div class="modal fade" id="set" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
-			<form action="" method="post" id="modalForm3">
+			<form action="/expense/setLimit" method="post" id="modalForm3">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -86,12 +86,14 @@
 								<select class="form-control text-dark border-4 font-weight-bold my-auto p-1" id="category" size="1" name="category" aria-describedby="category" required>
 									<option value="">--Please choose the category--</option>
 									{% for expenseCategory in expenseCategories %}
-										<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+											{% if expenseCategory.name != "Another" %}
+												<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+											{% endif %}
 									{% endfor %}
 								</select>
 							</div>
 							<div>
-								<input type="number" min="0" step="0.01" class="myinput form-control font-weight-bold text-dark border-4" id="limit" name="limit" value="" placeholder="Please provide monthly limit" aria-describedby="limit" required>
+								<input type="number" min="1" max="100000" step="1" class="myinput form-control font-weight-bold text-dark border-4" id="limitAmount" name="limitAmount" placeholder="Please provide monthly limit" aria-describedby="limitAmount" required>
 							</div>
 						</div>
 						<div class="modal-footer">

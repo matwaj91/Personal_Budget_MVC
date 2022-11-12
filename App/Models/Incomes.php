@@ -200,12 +200,80 @@ class Incomes extends \Core\Model
         return $stmt->execute();
 	}
 
+    public function checkIfTransactionExists($categoryId){
+
+        $sql = "SELECT * FROM incomes WHERE income_category_assigned_to_user_id = :id";
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $categoryId, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($results)){
+
+            return false;
+        }
+        else{
+            return $results;
+        }
+    }
+
     public function deleteCategory(){
 
-		$categoryId = $this->getCategoryId($this->category);
-				
-		$this->deleteSelectedFromCategories($categoryId);
+		$_SESSION['$categoryId'] = $this->getCategoryId($this->category);
 
-        return true;
+        $categoryId = $_SESSION['$categoryId'];
+
+        if($this->checkIfTransactionExists($categoryId) == false){
+
+            $this->deleteSelectedFromCategories($categoryId);
+            return true;
+        }
+        else{
+            return false;
+        }
 	}
+
+    public function deleteAllAssignedTransactions($categoryId){	
+		
+		$sql = "DELETE FROM incomes WHERE income_category_assigned_to_user_id = :id";
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $categoryId, PDO::PARAM_INT);
+        $stmt->execute();
+	}
+
+    public function transferTransaction($categoryId){
+		
+		$anotherId = $this->getCategoryId("Another");
+
+		$sql = "UPDATE incomes SET income_category_assigned_to_user_id = :anotherId WHERE income_category_assigned_to_user_id = :categoryId";			
+		
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':anotherId', $anotherId, PDO::PARAM_INT);
+        $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);
+        $stmt->execute();
+	}
+
+    public function deleteCategoryWithTransactions(){
+
+        $categoryId = $_SESSION['$categoryId'];
+
+		if($this->deleteCategory == "delete"){
+
+			$this->deleteAllAssignedTransactions($categoryId);
+			$this->deleteSelectedFromCategories($categoryId);
+			return 1;
+		}
+		else if($this->deleteCategory == "transfer"){
+            
+			$this->transferTransaction($categoryId);
+            $this->deleteSelectedFromCategories($categoryId);
+			return 2;
+		}
+    }
 }

@@ -66,5 +66,25 @@ class Income extends \Core\Controller{
 			Flash::addMessage("Selected category has been deleted!");
 			View::renderTemplate('Menu/incomeCategories.twig');
 		}
+        else{
+            Flash::addMessage("There are already saved incomes in the category you want to delete!", Flash::WARNING);
+			View::renderTemplate('Menu/deleteIncomeCategory.twig');
+        }
+	}
+
+    public function deleteCategoryIfTransactionsExistAction(){
+		
+		$existCategoryTransactions = new Incomes($_POST);
+		
+		if($existCategoryTransactions->deleteCategoryWithTransactions() == 1 ){
+
+			Flash::addMessage("Category and all assigned incomes have been deleted!");
+			View::renderTemplate('Menu/incomeCategories.twig');
+		}
+		else if ($existCategoryTransactions->deleteCategoryWithTransactions() == 2 ){
+
+			Flash::addMessage('Category has been deleted and all assigned transactions have been transferred to category "Another"!');
+			View::renderTemplate('Menu/incomeCategories.twig');
+		}
 	}
 }
