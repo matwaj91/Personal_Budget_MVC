@@ -31,6 +31,12 @@
 
 {% block body %}
 	<article>
+		<!-- <div class="bg-white rounded-lg opacity-75 shadow-lg h5 p-3 mx-auto text-center font-weight-bold alert alert-dismissible fade show" role="alert">
+			<span id="demo"></span>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div> !-->
 		<div class="container mt-2 p-2 h5 mx-auto">
 			<form method="post" id="formExpense" action="/expense/add" class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4 ">
 				<div class="mb-2">
@@ -55,10 +61,16 @@
 				</div>
 				<div class="form-group mx-auto">
 					<label for="category" class="font-weight-normal text-black">Category</label>
-					<select class="form-control text-dark border-4 font-weight-bold" id="category" size="1" name="category" aria-describedby="category" required>
+					<select class="form-control text-dark border-4 font-weight-bold" id="category" onchange="checkCategory()" size="1" name="category" aria-describedby="category" required>
 						<option value="">--Please choose an option--</option>
 						{% for expenseCategory in expenseCategories %}
-							<option value="{{expenseCategory.name}}">{{expenseCategory.name}}</option>
+							{% if expenseCategory.name != "Another" %}
+								<option id="{{expenseCategory.name}}" value="{{expenseCategory.name}}">{{expenseCategory.name}} &nbsp;
+									{% if expenseCategory.category_limit is not null %}
+										<p> - &nbsp; Category Limit: {{expenseCategory.category_limit}}$</p>
+									{% endif %}
+								</option>
+							{% endif %}
 						{% endfor %}
 					</select>
 				</div>
@@ -72,4 +84,5 @@
 			</form>
 		</div>
 	</article>
+	<script src="/js/limit.js"></script>
 {% endblock %}

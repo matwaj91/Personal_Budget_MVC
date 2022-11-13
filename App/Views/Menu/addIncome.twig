@@ -47,7 +47,9 @@
 					<select class="form-control text-dark border-4 font-weight-bold" id="category" size="1" name="category" aria-describedby="category" required>
 						<option value="">--Please choose an option--</option>
 						{% for incomeCategory in incomeCategories %}
-							<option value="{{incomeCategory.name}}">{{incomeCategory.name}}</option>
+							{% if incomeCategory.name != "Another" %}
+								<option value="{{incomeCategory.name}}">{{incomeCategory.name}}</option>
+							{% endif %}
 						{% endfor %}
 					</select>
 				</div>
