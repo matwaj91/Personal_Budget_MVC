@@ -13,6 +13,9 @@ session_start();
 
 $router = new Core\Router();
 
+$router->add('expense/categoryLimit/{category:[\w ]+}', ['controller' => 'Expense', 'action' => 'categoryLimit']);
+$router->add('expense/sumOfExpenses/{category:[\w ]+}/{date:[\d-]+}', ['controller' => 'Expense', 'action' => 'sumOfExpenses']);
+
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
 $router->add('{controller}/{action}');
 $router->add('{controller}/{id:\d+}/{action}');
@@ -27,5 +30,5 @@ $router->add('incomeCategories', ['controller' => 'Income', 'action' => 'display
 $router->add('expenseCategories', ['controller' => 'Expense', 'action' => 'displayExpenseCategories']);
 $router->add('paymentMethods', ['controller' => 'Setting', 'action' => 'displayPaymentMethods']);
 
-    
-$router->dispatch($_SERVER['QUERY_STRING']); 
+$router->dispatch($_SERVER['QUERY_STRING']);
+

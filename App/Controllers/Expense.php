@@ -36,6 +36,23 @@ class Expense extends \Core\Controller
         echo json_encode(Expenses::getUserExpensesCategories(), JSON_UNESCAPED_UNICODE);
     }
 
+    public function categoryLimitAction(){
+
+        $category = $this->route_params['category'];
+
+        echo json_encode(Expenses::getCategoryLimit($category), JSON_UNESCAPED_UNICODE);
+    }
+
+    public function sumOfExpensesAction(){
+
+        $category = $this->route_params['category'];
+        $date = $this->route_params['date'];
+
+        $categoryId = Expenses::getCategoryId($category);
+
+        echo json_encode(Expenses::getSumOfExpenses($categoryId, $date), JSON_UNESCAPED_UNICODE);
+    }
+
     public function addCategoryAction(){
 
 		$newCategory = new Expenses($_POST);

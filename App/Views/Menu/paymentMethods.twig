@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="container mt-2 p-2 h5 mx-auto">
-		<div class="bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-9">
+		<div class="mt-4 bg-white rounded-lg opacity-75 shadow-lg p-4 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-9">
 			<div class="mb-3 mt-0">
 				<h1 class="display-6 text-center p-0">Payment Methods</h1>
 			</div>
@@ -29,7 +29,7 @@
 						<div class="modal-body h5 mb-4">
 							<div class="form-group mx-auto my-auto">
 								<label for="payment" class="font-weight-normal text-black my-auto"></label>
-								<input type="text" class="form-control" id="payment" name="payment">
+								<input type="text" class="form-control" pattern="[a-zA-Z]+" id="payment" name="payment">
 							</div>
 						</div>
 						<div class="modal-footer">

@@ -31,12 +31,23 @@
 
 {% block body %}
 	<article>
-		<!-- <div class="bg-white rounded-lg opacity-75 shadow-lg h5 p-3 mx-auto text-center font-weight-bold alert alert-dismissible fade show" role="alert">
-			<span id="demo"></span>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div> !-->
+		<div class="d-inline d-flex flex-row align-items-center text-center bg-white rounded-lg opacity-75 shadow-lg h5 p-1 mx-auto my-auto text-center font-weight-bold alert alert-dismissible" id="box">
+			<div class="d-inline m-1 p-1 w-25 alert">
+				<span id="limit"></span>
+			</div>
+			<div class="d-inline m-1 p-1 w-25 alert">
+				<span id="expenses"></span>
+			</div>
+			<div class="d-inline m-1 p-1 w-25 alert">
+				<span id="diff"></span>
+			</div>
+			<div class="d-inline m-1 p-1 w-25 alert">
+				<span id="sum"></span>
+			</div>
+		</div>
+		<script>
+			document.getElementById("box").style.visibility = "hidden";
+		</script>
 		<div class="container mt-2 p-2 h5 mx-auto">
 			<form method="post" id="formExpense" action="/expense/add" class="bg-white rounded-lg opacity-75 shadow-lg p-3 mx-auto col-10 col-sm-9 col-md-7 col-lg-6 col-xl-5 col-xxl-4 ">
 				<div class="mb-2">
@@ -53,7 +64,7 @@
 				<div class="form-group mx-auto">
 					<label for="payment" class="font-weight-normal text-black">Payment method</label>
 					<select class="form-control text-dark border-4 font-weight-bold" id="payment" size="1" name="payment" aria-describedby="payment" required>
-						<option value="">--Please choose an option--</option>
+						<option value="" onclick="hideBalance()">--Please choose an option--</option>
 						{% for paymentMethod in paymentMethods %}
 							<option value="{{paymentMethod.name}}">{{paymentMethod.name}}</option>
 						{% endfor %}
@@ -61,7 +72,7 @@
 				</div>
 				<div class="form-group mx-auto">
 					<label for="category" class="font-weight-normal text-black">Category</label>
-					<select class="form-control text-dark border-4 font-weight-bold" id="category" onchange="checkCategory()" size="1" name="category" aria-describedby="category" required>
+					<select class="form-control text-dark border-4 font-weight-bold" id="category" size="1" name="category" aria-describedby="category" required>
 						<option value="">--Please choose an option--</option>
 						{% for expenseCategory in expenseCategories %}
 							{% if expenseCategory.name != "Another" %}
@@ -78,7 +89,7 @@
 					<label for="comment" class="font-weight-normal text-black">Comment</label>
 					<textarea id="comment" name="comment" placeholder="Type something here. . . " rows="2" class="form-control font-weight-bold text-black border-4"></textarea>
 				</div>
-				<button type="submit" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Add
+				<button type="submit" onclick="hideBalance()" class="greenButton my-3 p-1 d-block text-white btn btn-block mx-auto">Add
 				</button>
 				<a href="/Menu/main" class="text-decoration-none blackButton my-1 p-1 d-block text-white btn btn-block mx-auto">Cancel</a>
 			</form>

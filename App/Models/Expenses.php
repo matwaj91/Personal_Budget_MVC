@@ -33,6 +33,55 @@ class Expenses extends \Core\Model {
 		}
 	}
 
+    public static function getCategoryLimit($categoryName){
+
+		if($user = Auth::getUser()){
+
+			$userId = $user->id;
+
+            $sql = "SELECT category_limit FROM expenses_category_assigned_to_users 
+                    WHERE user_id = :userId AND name = :name LIMIT 1";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $categoryName, PDO::PARAM_STR);
+            $stmt->execute();
+		
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result[0]['category_limit'];
+		}
+	}
+
+    public static function getSumOfExpenses($categoryId, $date) {
+
+        if($user = Auth::getUser()){
+
+            $userId = $user->id;
+            $year = substr($date, 0, 4) ;
+            $month = substr($date, 5, 2) ;
+            $dateFrom = substr($date, 0, 8) . '01';
+            $dateTo = substr($date, 0, 8) . cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+            $sql = "SELECT SUM(amount) AS sum FROM expenses WHERE user_id = :userId 
+                    AND expense_category_assigned_to_user_id = :categoryId
+                    AND date_of_expense BETWEEN :dateFrom AND :dateTo LIMIT 1";
+
+            $db = static::getDB();
+            $stmt = $db->prepare($sql);
+            $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+            $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_INT);
+            $stmt->bindValue(':dateFrom', $dateFrom, PDO::PARAM_STR);
+            $stmt->bindValue(':dateTo', $dateTo, PDO::PARAM_STR);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result[0]['sum'];
+        }
+    }
+
     public function save(){
         
         if($user = Auth::getUser()){
@@ -184,7 +233,7 @@ class Expenses extends \Core\Model {
         }
     }
 
-    public function getCategoryId($deleteCategoryName)
+    public static function getCategoryId($categoryName)
 	{
 		if($user = Auth::getUser()){
 
@@ -196,7 +245,7 @@ class Expenses extends \Core\Model {
             $db = static::getDB();
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':userId', $userId, PDO::PARAM_STR);
-            $stmt->bindValue(':name', $deleteCategoryName, PDO::PARAM_STR);
+            $stmt->bindValue(':name', $categoryName, PDO::PARAM_STR);
             $stmt->execute();
 
             $fetchArray = $stmt->fetch(PDO::FETCH_ASSOC);
